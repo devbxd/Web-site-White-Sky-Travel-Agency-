@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>White Sky Travel Agency — Flights, Hotels &amp; Visa | Kuwait &amp; Lebanon</title>
+<meta name="description" content="White Sky Travel Agency — flight tickets, hotel reservations, visa assistance and travel packages. Offices in Kuwait City and Cheka, Lebanon.">
+<link rel="icon" href="assets/images/kuwait-office-banner.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Playfair+Display:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="intro" id="intro">
+  <video class="intro-video" autoplay muted playsinline preload="auto">
+    <source src="assets/video/plane-takeoff-sunset.mp4" type="video/mp4">
+  </video>
+  <div class="intro-overlay"></div>
+  <div class="dot-map" style="opacity:.12"></div>
+  <div class="intro-content">
+    <span class="intro-name">White Sky</span>
+    <span class="intro-sub">Travel Agency</span>
+  </div>
+  <button class="intro-skip" id="introSkip" aria-label="Skip intro">Skip <span>&rsaquo;</span></button>
+</div>
+<script>
+(function(){
+  var intro = document.getElementById('intro');
+  if (!intro) return;
+  if (sessionStorage.getItem('ws_intro_seen')) {
+    intro.classList.add('hide');
+    return;
+  }
+  document.documentElement.classList.add('intro-lock');
+  var dismissed = false;
+  function dismiss(){
+    if (dismissed) return;
+    dismissed = true;
+    intro.classList.add('hide');
+    document.documentElement.classList.remove('intro-lock');
+    sessionStorage.setItem('ws_intro_seen', '1');
+  }
+  var video = intro.querySelector('.intro-video');
+  var skipBtn = document.getElementById('introSkip');
+  if (skipBtn) skipBtn.addEventListener('click', dismiss);
+  if (video) {
+    video.addEventListener('ended', dismiss);
+    video.addEventListener('error', dismiss);
+  }
+  setTimeout(dismiss, 7000);
+})();
+</script>
+
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-contacts">
+      <a href="tel:+96598818699">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 6-3 2a14 14 0 0 0 6 6l2-3 6 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2z"/></svg>
+        Kuwait: +965 9881 8699
+      </a>
+      <a href="tel:+96176141918">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 6-3 2a14 14 0 0 0 6 6l2-3 6 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2z"/></svg>
+        Lebanon: +961 76 141 918
+      </a>
+    </div>
+    <span class="topbar-tag">Premium Travel Experience</span>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav container">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="21.5" stroke="#d1a85d" stroke-width="1.1"/>
+        <path d="M13 29.5 33 18l-6.5 18-2.7-7.4L13 29.5Z" fill="none" stroke="#eeda9f" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-text">
+        <span class="name">WHITE SKY</span>
+        <span class="sub">Travel Agency</span>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="contact.html#request" class="btn btn-gold">Request a Quote</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="dot-map"></div>
+  <div class="container">
+    <div class="hero-copy reveal">
+      <span class="eyebrow light">Kuwait · Lebanon</span>
+      <h1>Your journey,<br><em>elevated.</em></h1>
+      <p class="hero-lead">Flight tickets, hotel reservations, visa assistance and tailor-made travel packages — handled personally by our teams in Kuwait City and Cheka, Lebanon.</p>
+      <div class="hero-actions">
+        <a href="contact.html#request" class="btn btn-gold">Request a Quote</a>
+        <a href="services.html" class="btn btn-outline-light">Explore Services</a>
+      </div>
+      <div class="hero-offices">
+        <div>
+          <span class="k">Kuwait Office</span>
+          <span class="v">Al Douwaliya Complex</span>
+        </div>
+        <div>
+          <span class="k">Lebanon Office</span>
+          <span class="v">Cheka, Lebanon</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="glow g1"></div>
+      <div class="glow g2"></div>
+      <div class="frame">
+        <img src="assets/images/kuwait-office-banner.png" alt="White Sky Travel Agency — Kuwait Office">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container text-center">
+    <span class="eyebrow">What We Do</span>
+    <h2>Travel, arranged with care</h2>
+    <div class="divider"><span></span></div>
+    <div class="services-grid">
+      <article class="service-card reveal">
+        <span class="num">01</span>
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 15.5 4 13l1-2 8 1.5 4.5-7c.6-.9 1.9-1.2 2.8-.6.9.6 1.2 1.9.6 2.8l-4.4 6.9L18 18l-2 1-3.7-4.6-3 4.6-1.8-.6.5-3Z"/></svg>
+        </div>
+        <h3>Flight Tickets</h3>
+        <p>Domestic and international fares sourced across major airlines, with routing and timing matched to your schedule.</p>
+      </article>
+      <article class="service-card reveal">
+        <span class="num">02</span>
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19v-9a2 2 0 0 1 2-2h5v4M3 19h18M21 19v-6a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v6M3 13h5"/></svg>
+        </div>
+        <h3>Hotel Reservations</h3>
+        <p>Vetted hotels and serviced apartments in every price bracket, booked directly with trusted partner properties.</p>
+      </article>
+      <article class="service-card reveal">
+        <span class="num">03</span>
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1.5"/><circle cx="12" cy="10" r="2.4"/><path d="M9 17.5h6"/></svg>
+        </div>
+        <h3>Visa Assistance</h3>
+        <p>Document checklists, application follow-up and appointment scheduling for tourist and business visas.</p>
+      </article>
+      <article class="service-card reveal">
+        <span class="num">04</span>
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20 3 18V5l6 2m0 13 6-2m-6 2V7m6 11 6 2V7l-6-2m0 15V5m0 2-6-2"/></svg>
+        </div>
+        <h3>Tours &amp; Packages</h3>
+        <p>Custom itineraries combining flights, stays and transfers — built around the trip you actually want.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section-cream section">
+  <div class="dot-map" style="opacity:.08"></div>
+  <div class="container text-center">
+    <span class="eyebrow">Why White Sky</span>
+    <h2>Premium travel experience</h2>
+    <div class="divider"><span></span></div>
+    <div class="values-grid">
+      <div class="value-item reveal">
+        <div class="icon-circle dark">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h4>Quality Service</h4>
+        <p>Direct, personal follow-up from enquiry to departure — no call centres, no scripts.</p>
+      </div>
+      <div class="value-item reveal">
+        <div class="icon-circle dark">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        </div>
+        <h4>Best Prices</h4>
+        <p>Fares and rates negotiated with airline and hotel partners across the region.</p>
+      </div>
+      <div class="value-item reveal">
+        <div class="icon-circle dark">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6c0 6-8.8 11-8.8 11S3.2 14.6 3.2 8.6a5.6 5.6 0 0 1 10.6-2.5A5.6 5.6 0 0 1 20.8 8.6Z"/></svg>
+        </div>
+        <h4>Memorable Journeys</h4>
+        <p>Itineraries planned around how you actually want to travel, not a generic package.</p>
+      </div>
+      <div class="value-item reveal">
+        <div class="icon-circle dark">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v5c0 5.2 3.8 9.4 9 11 5.2-1.6 9-5.8 9-11V6l-9-4Z"/></svg>
+        </div>
+        <h4>Premium Experience</h4>
+        <p>Two dedicated offices — Kuwait and Lebanon — for hands-on support wherever you are.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container text-center">
+    <span class="eyebrow">Our Offices</span>
+    <h2>Two offices, one standard</h2>
+    <div class="divider"><span></span></div>
+    <div class="offices-grid">
+      <article class="office-card reveal">
+        <div class="thumb"><img src="assets/images/kuwait-office-banner.png" alt="White Sky Travel Agency, Kuwait Office"></div>
+        <div class="body">
+          <span class="country">State of Kuwait</span>
+          <h3>Kuwait Office</h3>
+          <ul class="office-list">
+            <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg> Kuwait City – Al Douwaliya Complex</li>
+            <li><a href="tel:+96598818699"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 6-3 2a14 14 0 0 0 6 6l2-3 6 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2z"/></svg> +965 9881 8699</a></li>
+            <li><a href="mailto:info@whiteskytravelagency.com"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3 7 9 6 9-6"/></svg> info@whiteskytravelagency.com</a></li>
+          </ul>
+          <div class="office-actions">
+            <a class="btn btn-gold" href="https://wa.me/96598818699" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn btn-outline-light" href="https://www.google.com/maps?q=Al+Douwaliya+Complex,+Kuwait+City,+Kuwait" target="_blank" rel="noopener">Directions</a>
+          </div>
+        </div>
+      </article>
+      <article class="office-card reveal">
+        <div class="thumb"><img src="assets/images/lebanon-office-banner.png" alt="White Sky Travel Agency, Lebanon Office"></div>
+        <div class="body">
+          <span class="country">Republic of Lebanon</span>
+          <h3>Lebanon Office</h3>
+          <ul class="office-list">
+            <li><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg> Cheka, Lebanon</li>
+            <li><a href="tel:+96176141918"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 6-3 2a14 14 0 0 0 6 6l2-3 6 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2z"/></svg> +961 76 141 918</a></li>
+            <li><a href="mailto:majd@mstravelagency.com"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3 7 9 6 9-6"/></svg> majd@mstravelagency.com</a></li>
+          </ul>
+          <div class="office-actions">
+            <a class="btn btn-gold" href="https://wa.me/96176141918" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn btn-outline-light" href="https://www.google.com/maps?q=Cheka,+Lebanon" target="_blank" rel="noopener">Directions</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="dot-map"></div>
+  <div class="container reveal">
+    <span class="eyebrow light">Plan Your Trip</span>
+    <h2>Tell us where you're going</h2>
+    <p>Share your travel needs and our team in Kuwait or Lebanon will get back to you with options — by WhatsApp or email, whichever you prefer.</p>
+    <a href="contact.html#request" class="btn btn-gold">Request a Quote</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">
+          <svg class="brand-mark" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="21.5" stroke="#d1a85d" stroke-width="1.1"/>
+            <path d="M13 29.5 33 18l-6.5 18-2.7-7.4L13 29.5Z" fill="none" stroke="#eeda9f" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <span class="brand-text">
+            <span class="name">WHITE SKY</span>
+            <span class="sub">Travel Agency</span>
+          </span>
+        </a>
+        <p>Flights, hotels, visa assistance and travel packages — with offices in Kuwait City and Cheka, Lebanon.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Kuwait Office</h5>
+        <ul>
+          <li class="small">Al Douwaliya Complex, Kuwait City</li>
+          <li><a href="tel:+96598818699">+965 9881 8699</a></li>
+          <li><a href="mailto:info@whiteskytravelagency.com">info@whiteskytravelagency.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Lebanon Office</h5>
+        <ul>
+          <li class="small">Cheka, Lebanon</li>
+          <li><a href="tel:+96176141918">+961 76 141 918</a></li>
+          <li><a href="mailto:majd@mstravelagency.com">majd@mstravelagency.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> White Sky Travel Agency. All rights reserved.</span>
+      <span>Kuwait &middot; Lebanon</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
