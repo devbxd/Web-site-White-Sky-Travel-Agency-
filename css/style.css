@@ -432,6 +432,82 @@ html.intro-lock,html.intro-lock body{overflow:hidden;height:100%;}
 .hero-visual .glow.g1{top:-60px;left:-60px;}
 .hero-visual .glow.g2{bottom:-70px;right:-50px;}
 
+/* ---------- Hero plane scene (coded, no stock/AI imagery) ---------- */
+.plane-scene{
+  position:relative;
+  width:100%;
+  aspect-ratio:1/1;
+  overflow:hidden;
+  background:
+    radial-gradient(120% 90% at 14% 88%,rgba(226,192,121,.18),transparent 60%),
+    linear-gradient(155deg,var(--navy-700) 0%,var(--navy-900) 55%,var(--navy-950) 100%);
+}
+.plane-scene .dot-map{opacity:.15;}
+.scene-ring{
+  position:absolute;
+  width:60%;
+  aspect-ratio:1/1;
+  border:1px solid rgba(226,192,121,.32);
+  border-radius:50%;
+  top:9%;
+  right:-9%;
+}
+.scene-ring::after{
+  content:'';
+  position:absolute;
+  inset:14%;
+  border:1px solid rgba(226,192,121,.14);
+  border-radius:50%;
+}
+.flight-trail,.scene-stars{position:absolute;inset:0;width:100%;height:100%;}
+.star{fill:#eeda9f;animation:twinkle 3.2s ease-in-out infinite;}
+.star.s2{animation-delay:1s;}
+.star.s3{animation-delay:2s;}
+@keyframes twinkle{0%,100%{opacity:.2;}50%{opacity:1;}}
+
+.plane-fly{
+  position:absolute;
+  width:64px;
+  height:64px;
+  left:4%;
+  bottom:16%;
+  filter:drop-shadow(0 8px 18px rgba(226,192,121,.45));
+  animation:flyAcross 7s cubic-bezier(.4,.05,.3,1) infinite;
+}
+.plane-fly svg{width:100%;height:100%;}
+@keyframes flyAcross{
+  0%{transform:translate(0,0) scale(.6);opacity:0;}
+  10%{opacity:1;}
+  82%{opacity:1;}
+  100%{transform:translate(280%,-290%) scale(1.25);opacity:0;}
+}
+
+.scene-caption{
+  position:absolute;
+  left:30px;
+  bottom:28px;
+  display:flex;
+  flex-direction:column;
+}
+.scene-caption .scene-name{
+  font-family:var(--font-display);
+  font-style:italic;
+  font-weight:600;
+  font-size:28px;
+  color:var(--gold-100);
+}
+.scene-caption .scene-sub{
+  margin-top:3px;
+  font-size:9.5px;
+  letter-spacing:.4em;
+  text-transform:uppercase;
+  color:var(--gold-400);
+}
+@media(prefers-reduced-motion:reduce){
+  .plane-fly{animation:none;left:38%;bottom:38%;opacity:1;}
+  .star{animation:none;opacity:.7;}
+}
+
 @media(max-width:960px){
   .hero .container{grid-template-columns:1fr;padding-top:60px;padding-bottom:60px;}
   .hero-visual{order:-1;max-width:420px;}
