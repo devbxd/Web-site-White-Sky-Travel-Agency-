@@ -928,6 +928,8 @@ html.intro-lock,html.intro-lock body{overflow:hidden;height:100%;}
 .hs-card-main{min-width:0;}
 .hs-card-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
 .hs-card-name{font-family:var(--font-head);font-size:19px;color:var(--navy-900);}
+a.hs-card-name:hover,a.hs-card-thumb:hover img{color:var(--gold-700);}
+a.hs-card-thumb{cursor:pointer;}
 .hs-stars{display:inline-flex;gap:3px;}
 .hs-stars span{
   width:6px;height:6px;
@@ -1001,3 +1003,100 @@ html.intro-lock,html.intro-lock body{overflow:hidden;height:100%;}
   border-radius:1px;
 }
 @keyframes hsShimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+
+/* ---------- Hotel detail page ---------- */
+.hotel-detail-section{background:var(--cream-50);}
+.hd-breadcrumb{
+  font-size:11.5px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--gold-600);
+  display:flex;
+  gap:8px;
+}
+.hd-breadcrumb a{color:var(--ink-400);}
+.hd-breadcrumb a:hover{color:var(--gold-600);}
+.hd-breadcrumb span{color:var(--ink-400);}
+
+.hd-gallery{margin-top:26px;}
+.hd-gallery-main{
+  width:100%;
+  aspect-ratio:16/7;
+  overflow:hidden;
+  border:1px solid var(--cream-200);
+  background:linear-gradient(160deg,var(--navy-800),var(--navy-950));
+}
+.hd-gallery-main img{width:100%;height:100%;object-fit:cover;display:block;}
+.hd-gallery-strip{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+  overflow-x:auto;
+  padding-bottom:4px;
+}
+.hd-strip-thumb{
+  flex:none;
+  width:104px;
+  height:74px;
+  border:1px solid var(--cream-200);
+  padding:0;
+  background:none;
+  overflow:hidden;
+  opacity:.6;
+  transition:opacity .25s var(--ease),border-color .25s var(--ease);
+}
+.hd-strip-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.hd-strip-thumb:hover{opacity:.85;}
+.hd-strip-thumb.active{opacity:1;border-color:var(--gold-400);}
+
+.hd-layout{
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:60px;
+  margin-top:48px;
+  align-items:start;
+}
+@media(max-width:900px){.hd-layout{grid-template-columns:1fr;gap:40px;}}
+
+.hd-heading{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.hd-heading h1{font-size:clamp(26px,3vw,36px);}
+.hd-address{margin-top:14px;font-size:14.5px;}
+.hd-address svg{width:16px;height:16px;}
+.hd-description{margin-top:26px;color:var(--ink-600);line-height:1.85;font-size:15px;}
+
+.hd-facilities{
+  margin-top:30px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.hd-chip{
+  font-size:12px;
+  letter-spacing:.05em;
+  padding:8px 14px;
+  border:1px solid var(--cream-200);
+  color:var(--navy-800);
+  background:#fff;
+}
+
+.hd-rooms{
+  background:#fff;
+  border:1px solid var(--cream-200);
+  padding:30px 28px;
+  box-shadow:0 30px 70px -45px rgba(21,26,36,.25);
+}
+.hd-rooms h2{font-size:19px;}
+.hd-rooms-list{display:flex;flex-direction:column;gap:18px;}
+.hd-room-row{
+  border:1px solid var(--cream-200);
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.hd-room-name{font-family:var(--font-head);font-size:16px;color:var(--navy-900);display:block;}
+.hd-room-info .hs-card-meta{margin-top:10px;}
+.hd-room-price{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.hd-room-price .amount{font-family:var(--font-head);font-size:20px;color:var(--navy-900);}
+.hd-room-price .btn{padding:10px 18px;font-size:11px;}
+.hd-no-rates{color:var(--ink-600);font-size:13.5px;line-height:1.7;}

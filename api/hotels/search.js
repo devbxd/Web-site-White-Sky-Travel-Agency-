@@ -4,10 +4,10 @@ const { hasApiKey, liteApiGet, liteApiPost } = require("../_lib/liteapi");
 function demoHotels(destination) {
   const label = destination || "your destination";
   return [
-    { name: "Grand " + label + " Hotel", stars: 5, address: "Central district, " + label, price: 214, currency: "USD", board: "Breakfast Included", freeCancellation: true },
-    { name: label + " Bay Resort", stars: 4, address: "Waterfront promenade, " + label, price: 156, currency: "USD", board: "Room Only", freeCancellation: true },
-    { name: "The " + label + " Suites", stars: 4, address: "Business district, " + label, price: 132, currency: "USD", board: "Breakfast Included", freeCancellation: false },
-    { name: label + " Garden Inn", stars: 3, address: "Old town, " + label, price: 89, currency: "USD", board: "Room Only", freeCancellation: true }
+    { id: "demo-1", name: "Grand " + label + " Hotel", stars: 5, address: "Central district, " + label, price: 214, currency: "USD", board: "Breakfast Included", freeCancellation: true },
+    { id: "demo-2", name: label + " Bay Resort", stars: 4, address: "Waterfront promenade, " + label, price: 156, currency: "USD", board: "Room Only", freeCancellation: true },
+    { id: "demo-3", name: "The " + label + " Suites", stars: 4, address: "Business district, " + label, price: 132, currency: "USD", board: "Breakfast Included", freeCancellation: false },
+    { id: "demo-4", name: label + " Garden Inn", stars: 3, address: "Old town, " + label, price: 89, currency: "USD", board: "Room Only", freeCancellation: true }
   ];
 }
 
@@ -99,6 +99,7 @@ module.exports = async function handler(req, res) {
       const rate = cheapestRate(hotel);
       const info = infoById[hotel.hotelId] || hotel.hotelData || {};
       return {
+        id: hotel.hotelId,
         name: info.name || "Hotel",
         stars: info.stars || info.starRating || null,
         address: [info.address, info.city_name].filter(Boolean).join(", "),

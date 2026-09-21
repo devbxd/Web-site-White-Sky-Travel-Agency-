@@ -150,8 +150,23 @@
         var card = document.createElement("article");
         card.className = "hs-card";
 
-        var thumb = document.createElement("div");
+        var detailHref = null;
+        if (hotel.id) {
+          var dqs = new URLSearchParams({
+            id: hotel.id,
+            checkin: params.checkin,
+            checkout: params.checkout,
+            rooms: params.rooms,
+            adults: params.adults,
+            nationality: params.nationality,
+            name: hotel.name || ""
+          });
+          detailHref = "hotel.html?" + dqs.toString();
+        }
+
+        var thumb = document.createElement(detailHref ? "a" : "div");
         thumb.className = "hs-card-thumb";
+        if (detailHref) thumb.href = detailHref;
         if (hotel.image) {
           var img = document.createElement("img");
           img.src = hotel.image;
@@ -173,9 +188,10 @@
 
         var top = document.createElement("div");
         top.className = "hs-card-top";
-        var nameEl = document.createElement("span");
+        var nameEl = document.createElement(detailHref ? "a" : "span");
         nameEl.className = "hs-card-name";
         nameEl.textContent = hotel.name || "Hotel";
+        if (detailHref) nameEl.href = detailHref;
         top.appendChild(nameEl);
         if (hotel.stars) {
           var starsWrap = document.createElement("span");
