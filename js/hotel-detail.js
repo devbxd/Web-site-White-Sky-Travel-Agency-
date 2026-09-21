@@ -98,7 +98,7 @@
         }
 
         if (images.length) {
-          setMain(images[0].url, hotel.name);
+          setMain(images[0].hdUrl || images[0].url, hotel.name);
           images.forEach(function(img, i){
             var thumb = document.createElement("button");
             thumb.type = "button";
@@ -109,7 +109,7 @@
             thumbImg.loading = "lazy";
             thumb.appendChild(thumbImg);
             thumb.addEventListener("click", function(){
-              setMain(img.url, img.caption || hotel.name);
+              setMain(img.hdUrl || img.url, img.caption || hotel.name);
               strip.querySelectorAll(".hd-strip-thumb").forEach(function(t){ t.classList.remove("active"); });
               thumb.classList.add("active");
             });
@@ -143,7 +143,7 @@
             thumbImg.loading = "lazy";
             thumb.appendChild(thumbImg);
             thumb.addEventListener("click", function(){
-              setMain(img.url, img.caption || group.name);
+              setMain(img.hdUrl || img.url, img.caption || group.name);
             });
             groupStrip.appendChild(thumb);
           });

@@ -80,13 +80,18 @@ module.exports = async function handler(req, res) {
 
     const info = content.data || {};
 
+    /* `url` is the standard-resolution image used for thumbnails; `hdUrl`
+       is only fetched when the visitor actually enlarges that photo, so
+       the page doesn't pull dozens of full-size images just to render
+       150px-wide thumbnails. */
     const images = (info.hotelImages || [])
       .slice()
       .sort(function (a, b) { return (a.order || 0) - (b.order || 0); })
-      .map(function (img) { return { url: img.urlHd || img.url, caption: img.caption || "" }; })
-      .filter(function (img) { return !!img.url; });
+      .map(function (img) { return { url: img.url || img.urlHd, hdUrl: img.urlHd || img.url, caption: img.caption || "" }; })
+      .filter(function (img) { return !!img.url; })
+      .slice(0, 10);
     if (!images.length && (info.main_photo || info.thumbnail)) {
-      images.push({ url: info.main_photo || info.thumbnail, caption: "" });
+      images.push({ url: info.thumbnail || info.main_photo, hdUrl: info.main_photo || info.thumbnail, caption: "" });
     }
 
     const facilities = (info.hotelFacilities && info.hotelFacilities.length ? info.hotelFacilities : null) ||
@@ -96,9 +101,9 @@ module.exports = async function handler(req, res) {
     const seenRoomNames = {};
     const roomGalleries = (info.rooms || []).map(function (r) {
       const roomImages = (r.photos || [])
-        .map(function (p) { return { url: p.hd_url || p.url, caption: p.imageDescription || "" }; })
+        .map(function (p) { return { url: p.url || p.hd_url, hdUrl: p.hd_url || p.url, caption: p.imageDescription || "" }; })
         .filter(function (p) { return !!p.url; })
-        .slice(0, 10);
+        .slice(0, 6);
       return { name: r.roomName || "Room", images: roomImages };
     }).filter(function (group) {
       if (!group.images.length) return false;
@@ -106,7 +111,7 @@ module.exports = async function handler(req, res) {
       if (seenRoomNames[key]) return false;
       seenRoomNames[key] = true;
       return true;
-    }).slice(0, 8);
+    }).slice(0, 6);
 
     /* Multiple suppliers often return the same room+board combo at
        (near-)identical prices — keep only the cheapest offer per
