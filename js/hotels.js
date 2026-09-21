@@ -150,6 +150,24 @@
         var card = document.createElement("article");
         card.className = "hs-card";
 
+        var thumb = document.createElement("div");
+        thumb.className = "hs-card-thumb";
+        if (hotel.image) {
+          var img = document.createElement("img");
+          img.src = hotel.image;
+          img.alt = hotel.name || "Hotel";
+          img.loading = "lazy";
+          img.addEventListener("error", function(){
+            thumb.classList.add("no-image");
+            thumb.innerHTML = '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19v-9a2 2 0 0 1 2-2h5v4M3 19h18M21 19v-6a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v6M3 13h5"/></svg>';
+          });
+          thumb.appendChild(img);
+        } else {
+          thumb.classList.add("no-image");
+          thumb.innerHTML = '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19v-9a2 2 0 0 1 2-2h5v4M3 19h18M21 19v-6a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v6M3 13h5"/></svg>';
+        }
+        card.appendChild(thumb);
+
         var main = document.createElement("div");
         main.className = "hs-card-main";
 

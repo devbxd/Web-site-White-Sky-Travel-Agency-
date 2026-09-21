@@ -86,20 +86,31 @@ module.exports = async function handler(req, res) {
       includeHotelData: true
     });
 
-    const rawHotels = data.data || data.hotels || [];
-    const hotels = rawHotels.map(function (hotel) {
+    /* The rates endpoint returns pricing in `data` (keyed by hotelId) and
+       hotel content (name/address/photos) separately in `hotels` — merge
+       the two by id. */
+    const infoById = {};
+    (data.hotels || []).forEach(function (info) {
+      infoById[info.id] = info;
+    });
+
+    const rawRates = data.data || [];
+    const hotels = rawRates.map(function (hotel) {
       const rate = cheapestRate(hotel);
-      const info = hotel.hotelData || hotel;
+      const info = infoById[hotel.hotelId] || hotel.hotelData || {};
       return {
         name: info.name || "Hotel",
         stars: info.stars || info.starRating || null,
-        address: info.address || "",
+        address: [info.address, info.city_name].filter(Boolean).join(", "),
+        image: info.main_photo || info.thumbnail || null,
         price: rate ? rate.amount : null,
         currency: rate ? rate.currency : "USD",
         board: rate ? rate.board : "",
         freeCancellation: rate ? rate.freeCancellation : false
       };
-    }).filter(function (h) { return h.price != null; });
+    }).filter(function (h) { return h.price != null; })
+      .sort(function (a, b) { return a.price - b.price; })
+      .slice(0, 24);
 
     res.status(200).json({ hotels: hotels });
   } catch (err) {
