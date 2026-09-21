@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Us — White Sky Travel Agency | Kuwait &amp; Lebanon</title>
-<meta name="description" content="White Sky Travel Agency — a Kuwait and Lebanon based travel agency offering flights, hotels, visa assistance and travel packages.">
+<title>Hotel Search — White Sky Travel Agency | Kuwait &amp; Lebanon</title>
+<meta name="description" content="Search and compare hotel rates worldwide — negotiated rates from our travel partner network, booked personally by White Sky Travel Agency.">
 <link rel="icon" href="assets/images/kuwait-office-banner.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Playfair+Display:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Playfair+Display:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -43,9 +43,9 @@
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="hotels.html">Hotels</a></li>
+      <li><a href="hotels.html" class="active">Hotels</a></li>
       <li><a href="services.html">Services</a></li>
-      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-cta">
@@ -58,90 +58,93 @@
 <section class="page-hero">
   <div class="dot-map"></div>
   <div class="container">
-    <span class="breadcrumb"><a href="index.html">Home</a><span>/</span>About</span>
-    <h1>About White Sky</h1>
-    <p>A travel agency built around direct, personal service — with a presence in both Kuwait and Lebanon.</p>
+    <span class="breadcrumb"><a href="index.html">Home</a><span>/</span>Hotels</span>
+    <h1>Search hotel rates</h1>
+    <p>Live availability from our partner network — the same negotiated rates our agents book with, compared side by side.</p>
   </div>
 </section>
 
-<section class="section">
+<section class="section-tight hotel-search-section">
   <div class="container">
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <span class="eyebrow">Who We Are</span>
-        <h2>Two offices, one point of contact</h2>
-        <p>White Sky Travel Agency handles flight tickets, hotel reservations, visa assistance and custom travel packages from two offices — Kuwait City and Cheka, Lebanon — giving clients on both sides of the region a direct line to the same standard of service.</p>
-        <p>Every enquiry is handled personally: we ask what the trip actually needs, source options accordingly, and stay in touch by phone, WhatsApp or email until it's booked.</p>
-        <p>Our approach is deliberately straightforward — quality service, competitive prices, and journeys worth remembering, for every kind of traveller we work with.</p>
+
+    <form id="hotelSearchForm" class="hotel-search-card reveal" autocomplete="off">
+      <div class="hs-row">
+        <div class="field hs-field-destination">
+          <label for="destination">Destination</label>
+          <input type="text" id="destination" name="destination" placeholder="City, hotel or region" required>
+          <div class="hs-suggestions" id="hsSuggestions" hidden></div>
+        </div>
+        <div class="field">
+          <label for="checkin">Check-in</label>
+          <input type="date" id="checkin" name="checkin" required>
+        </div>
+        <div class="field">
+          <label for="checkout">Check-out</label>
+          <input type="date" id="checkout" name="checkout" required>
+        </div>
+        <div class="field hs-field-narrow">
+          <label for="rooms">Rooms</label>
+          <select id="rooms" name="rooms">
+            <option value="1">1 Room</option>
+            <option value="2">2 Rooms</option>
+            <option value="3">3 Rooms</option>
+            <option value="4">4 Rooms</option>
+          </select>
+        </div>
+        <div class="field hs-field-narrow">
+          <label for="adults">Guests</label>
+          <select id="adults" name="adults">
+            <option value="1">1 Adult</option>
+            <option value="2" selected>2 Adults</option>
+            <option value="3">3 Adults</option>
+            <option value="4">4 Adults</option>
+            <option value="5">5 Adults</option>
+            <option value="6">6 Adults</option>
+          </select>
+        </div>
+        <div class="field hs-field-narrow">
+          <label for="nationality">Nationality</label>
+          <select id="nationality" name="nationality">
+            <option value="KW">Kuwait</option>
+            <option value="LB">Lebanon</option>
+            <option value="AE">UAE</option>
+            <option value="SA">Saudi Arabia</option>
+            <option value="QA">Qatar</option>
+            <option value="OTHER">Other</option>
+          </select>
+        </div>
       </div>
-      <div class="reveal">
-        <img src="assets/images/lebanon-office-banner.png" alt="White Sky Travel Agency — Lebanon Office">
+      <button type="submit" class="btn btn-gold hs-submit">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        Search Hotels
+      </button>
+    </form>
+
+    <div class="hs-status" id="hsStatus" hidden></div>
+
+    <div class="hs-results" id="hsResults" hidden>
+      <div class="hs-results-head">
+        <h2 id="hsResultsTitle">Available hotels</h2>
+        <span class="hs-results-count" id="hsResultsCount"></span>
       </div>
+      <div class="hs-results-list" id="hsResultsList"></div>
     </div>
 
-    <div class="stat-strip reveal">
-      <div>
-        <strong>2</strong>
-        <span>Offices — Kuwait &amp; Lebanon</span>
-      </div>
-      <div>
-        <strong>4</strong>
-        <span>Core Services</span>
-      </div>
-      <div>
-        <strong>1:1</strong>
-        <span>Personal Follow-up</span>
-      </div>
+    <div class="hs-empty" id="hsEmpty" hidden>
+      <div class="divider"><span></span></div>
+      <p>No availability found for these dates. Try adjusting your destination or travel dates.</p>
     </div>
-  </div>
-</section>
 
-<section class="section-cream section">
-  <div class="dot-map" style="opacity:.08"></div>
-  <div class="container text-center">
-    <span class="eyebrow">Our Standards</span>
-    <h2>What guides every booking</h2>
-    <div class="divider"><span></span></div>
-    <div class="values-grid">
-      <div class="value-item reveal">
-        <div class="icon-circle dark">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
-        </div>
-        <h4>Quality Service</h4>
-        <p>A dedicated contact for every enquiry, from first message to final confirmation.</p>
-      </div>
-      <div class="value-item reveal">
-        <div class="icon-circle dark">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-        </div>
-        <h4>Best Prices</h4>
-        <p>Options compared across partners before anything is recommended to you.</p>
-      </div>
-      <div class="value-item reveal">
-        <div class="icon-circle dark">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6c0 6-8.8 11-8.8 11S3.2 14.6 3.2 8.6a5.6 5.6 0 0 1 10.6-2.5A5.6 5.6 0 0 1 20.8 8.6Z"/></svg>
-        </div>
-        <h4>Memorable Journeys</h4>
-        <p>Trips planned around what you want to see and do, not a fixed template.</p>
-      </div>
-      <div class="value-item reveal">
-        <div class="icon-circle dark">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v5c0 5.2 3.8 9.4 9 11 5.2-1.6 9-5.8 9-11V6l-9-4Z"/></svg>
-        </div>
-        <h4>Premium Experience</h4>
-        <p>The same care and attention whether you reach us from Kuwait or Lebanon.</p>
-      </div>
-    </div>
   </div>
 </section>
 
 <section class="cta-band">
   <div class="dot-map"></div>
   <div class="container reveal">
-    <span class="eyebrow light">Let's Talk</span>
-    <h2>Start planning your next trip</h2>
-    <p>Reach our Kuwait or Lebanon office directly, or send a request and we'll get back to you.</p>
-    <a href="contact.html#request" class="btn btn-gold">Request a Quote</a>
+    <span class="eyebrow light">Prefer A Human Touch</span>
+    <h2>Let our agents find your rate</h2>
+    <p>Send us your destination and dates and our Kuwait or Lebanon team will confirm the best hotel rate directly.</p>
+    <a href="contact.html?service=hotels#request" class="btn btn-gold">Request a Quote</a>
   </div>
 </section>
 
@@ -196,5 +199,6 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/hotels.js"></script>
 </body>
 </html>

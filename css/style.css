@@ -573,6 +573,19 @@ html.intro-lock,html.intro-lock body{overflow:hidden;height:100%;}
   font-size:13px;
   color:var(--gold-600);
 }
+.service-card-link{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  margin-top:16px;
+  font-size:11.5px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--gold-300);
+  transition:gap .25s var(--ease);
+}
+.service-card-link span{font-size:15px;line-height:1;}
+.service-card-link:hover{gap:9px;color:var(--gold-200);}
 @media(max-width:960px){.services-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:560px){.services-grid{grid-template-columns:1fr;}}
 
@@ -793,3 +806,184 @@ html.intro-lock,html.intro-lock body{overflow:hidden;height:100%;}
 .stat-strip strong{display:block;font-family:var(--font-head);font-size:28px;color:var(--gold-300);}
 .stat-strip span{display:block;margin-top:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--paper-muted);}
 @media(max-width:640px){.stat-strip{grid-template-columns:1fr;}.stat-strip div{border-left:none;border-top:1px solid rgba(226,192,121,.2);}.stat-strip div:first-child{border-top:none;}}
+
+/* ---------- Hotel search ---------- */
+.hotel-search-section{background:var(--cream-50);}
+.hotel-search-card{
+  background:#fff;
+  border:1px solid var(--cream-200);
+  box-shadow:0 30px 70px -40px rgba(21,26,36,.22);
+  padding:34px 34px 30px;
+}
+.hs-row{
+  display:grid;
+  grid-template-columns:1.6fr 1fr 1fr .8fr .9fr 1fr;
+  gap:16px;
+  align-items:start;
+}
+.hs-field-destination{position:relative;}
+.hs-field-narrow select{padding-right:10px;}
+@media(max-width:1080px){.hs-row{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.hs-row{grid-template-columns:1fr;}}
+
+.hs-suggestions{
+  position:absolute;
+  top:calc(100% + 4px);
+  left:0;right:0;
+  background:#fff;
+  border:1px solid var(--cream-200);
+  box-shadow:0 20px 40px -20px rgba(21,26,36,.3);
+  z-index:20;
+  max-height:240px;
+  overflow-y:auto;
+}
+.hs-suggestions button{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:2px;
+  width:100%;
+  text-align:left;
+  background:none;
+  border:none;
+  padding:11px 15px;
+  font-size:13.5px;
+  color:var(--ink-900);
+  border-bottom:1px solid var(--cream-100);
+}
+.hs-suggestions button:last-child{border-bottom:none;}
+.hs-suggestions button:hover,.hs-suggestions button.active{background:var(--cream-100);}
+.hs-suggestions .hs-sugg-sub{font-size:11.5px;letter-spacing:.06em;color:var(--ink-400);text-transform:uppercase;}
+
+.hs-submit{margin-top:22px;width:100%;}
+@media(min-width:661px){.hs-submit{width:auto;padding-left:44px;padding-right:44px;}}
+
+.hs-status{
+  margin-top:28px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:13.5px;
+  letter-spacing:.04em;
+  color:var(--ink-600);
+}
+.hs-status.is-error{color:var(--gold-700);}
+.hs-spinner{
+  width:16px;height:16px;
+  border-radius:50%;
+  border:2px solid var(--cream-200);
+  border-top-color:var(--gold-400);
+  animation:hsSpin .8s linear infinite;
+  flex:none;
+}
+@keyframes hsSpin{to{transform:rotate(360deg);}}
+
+.hs-results{margin-top:44px;}
+.hs-results-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  border-bottom:1px solid var(--cream-200);
+  padding-bottom:16px;
+  margin-bottom:26px;
+}
+.hs-results-head h2{font-size:clamp(20px,2.4vw,26px);}
+.hs-results-count{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-600);}
+.hs-demo-note{
+  font-size:12.5px;
+  color:var(--gold-700);
+  background:var(--cream-100);
+  border-left:2px solid var(--gold-400);
+  padding:10px 14px;
+  margin-bottom:16px;
+}
+
+.hs-results-list{display:flex;flex-direction:column;gap:2px;background:var(--cream-200);border:1px solid var(--cream-200);}
+
+.hs-card{
+  background:var(--cream-50);
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:20px;
+  align-items:center;
+  padding:26px 30px;
+  transition:background .25s var(--ease);
+}
+.hs-card:hover{background:#fff;}
+.hs-card-main{min-width:0;}
+.hs-card-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.hs-card-name{font-family:var(--font-head);font-size:19px;color:var(--navy-900);}
+.hs-stars{display:inline-flex;gap:3px;}
+.hs-stars span{
+  width:6px;height:6px;
+  background:var(--gold-400);
+  transform:rotate(45deg);
+  display:inline-block;
+}
+.hs-card-address{
+  margin-top:8px;
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  font-size:13.5px;
+  color:var(--ink-600);
+}
+.hs-card-address svg{width:14px;height:14px;stroke:var(--gold-500);fill:none;stroke-width:1.6;flex:none;margin-top:2px;}
+.hs-card-meta{
+  margin-top:12px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.hs-badge{
+  font-size:10.5px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  padding:5px 10px;
+  border:1px solid var(--cream-200);
+  color:var(--ink-600);
+}
+.hs-badge.free-cancel{border-color:rgba(192,149,76,.4);color:var(--gold-700);}
+
+.hs-card-price{text-align:right;}
+.hs-card-price .amount{
+  display:block;
+  font-family:var(--font-head);
+  font-size:26px;
+  color:var(--navy-900);
+}
+.hs-card-price .per-night{
+  display:block;
+  font-size:11px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--ink-400);
+  margin-top:2px;
+}
+.hs-card-price .btn{margin-top:14px;padding:11px 22px;font-size:11.5px;}
+
+@media(max-width:640px){
+  .hs-card{grid-template-columns:1fr;}
+  .hs-card-price{text-align:left;}
+  .hs-card-price .btn{width:100%;}
+}
+
+.hs-empty{text-align:center;padding:50px 0 10px;color:var(--ink-600);}
+.hs-empty p{max-width:420px;margin:0 auto;font-size:14.5px;}
+
+.hs-skeleton-card{
+  background:var(--cream-50);
+  padding:26px 30px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:20px;
+}
+.hs-skeleton-line{
+  background:linear-gradient(90deg,var(--cream-100) 0%,var(--cream-200) 50%,var(--cream-100) 100%);
+  background-size:200% 100%;
+  animation:hsShimmer 1.4s ease-in-out infinite;
+  border-radius:1px;
+}
+@keyframes hsShimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}

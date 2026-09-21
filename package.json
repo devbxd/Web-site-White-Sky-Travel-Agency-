@@ -1,0 +1,9 @@
+{
+  "name": "white-sky-travel-agency-web-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "White Sky Travel Agency website — static site with a hotel-search API backed by LiteAPI (liteapi.travel).",
+  "engines": {
+    "node": ">=18"
+  }
+}
