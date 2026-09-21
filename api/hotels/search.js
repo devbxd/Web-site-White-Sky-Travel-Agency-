@@ -24,22 +24,42 @@ function isRefundable(rate) {
   return policies.some(function (p) { return p.refundableTag === "RFN"; });
 }
 
+function rateAmount(rate) {
+  const total = rate && rate.retailRate && rate.retailRate.total;
+  if (!total) return null;
+  return Array.isArray(total) ? total[0] : total;
+}
+
+/* Each roomTypes[] entry is one bookable offer. When more than one room is
+   requested, that offer's `rates` array holds one entry PER ROOM
+   (occupancyNumber 1, 2, ...) — LiteAPI does not sum them for you, so the
+   full price for the stay is the sum across that offer's rates, not the
+   price of a single room in it. */
+function offerTotal(rt) {
+  let amount = 0;
+  let currency = "USD";
+  let board = "";
+  let freeCancellation = true;
+  let count = 0;
+  (rt.rates || []).forEach(function (rate) {
+    const amt = rateAmount(rate);
+    if (!amt) return;
+    count++;
+    amount += amt.amount;
+    currency = amt.currency || currency;
+    if (!board) board = boardLabel(rate);
+    if (!isRefundable(rate)) freeCancellation = false;
+  });
+  if (!count) return null;
+  return { amount: amount, currency: currency, board: board, freeCancellation: freeCancellation };
+}
+
 function cheapestRate(hotel) {
   let best = null;
   (hotel.roomTypes || []).forEach(function (rt) {
-    (rt.rates || []).forEach(function (rate) {
-      const amount = rate && rate.retailRate && rate.retailRate.total &&
-        (Array.isArray(rate.retailRate.total) ? rate.retailRate.total[0].amount : rate.retailRate.total.amount);
-      if (amount == null) return;
-      if (!best || amount < best.amount) {
-        best = {
-          amount: amount,
-          currency: (Array.isArray(rate.retailRate.total) ? rate.retailRate.total[0].currency : rate.retailRate.total.currency) || "USD",
-          board: boardLabel(rate),
-          freeCancellation: isRefundable(rate)
-        };
-      }
-    });
+    const offer = offerTotal(rt);
+    if (!offer) return;
+    if (!best || offer.amount < best.amount) best = offer;
   });
   return best;
 }

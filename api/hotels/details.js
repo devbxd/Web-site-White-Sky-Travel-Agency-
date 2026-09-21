@@ -113,25 +113,33 @@ module.exports = async function handler(req, res) {
       return true;
     }).slice(0, 6);
 
-    /* Multiple suppliers often return the same room+board combo at
-       (near-)identical prices — keep only the cheapest offer per
-       name+board+cancellation combo so the list doesn't balloon. */
+    /* Each roomTypes[] entry is one bookable offer. When more than one
+       room is requested, its `rates` array holds one entry PER ROOM
+       (occupancyNumber 1, 2, ...) that must be summed to get the total
+       price for the whole stay — LiteAPI does not sum them for you.
+       Multiple suppliers also often return the same room+board combo at
+       (near-)identical prices, so we keep only the cheapest offer per
+       name+board+cancellation combo. */
     let roomRates = [];
     const rateHotel = rates && rates.data && rates.data[0];
     if (rateHotel) {
       const bestByKey = {};
       (rateHotel.roomTypes || []).forEach(function (rt) {
+        let total = 0, currency = "USD", name = "Room", board = "", freeCancellation = true, count = 0;
         (rt.rates || []).forEach(function (rate) {
           const amt = rateAmount(rate);
           if (!amt) return;
-          const name = rate.name || "Room";
-          const board = boardLabel(rate);
-          const freeCancellation = isRefundable(rate);
-          const key = name.toLowerCase() + "|" + board.toLowerCase() + "|" + freeCancellation;
-          if (!bestByKey[key] || amt.amount < bestByKey[key].price) {
-            bestByKey[key] = { name: name, board: board, price: amt.amount, currency: amt.currency || "USD", freeCancellation: freeCancellation };
-          }
+          count++;
+          total += amt.amount;
+          currency = amt.currency || currency;
+          if (count === 1) { name = rate.name || "Room"; board = boardLabel(rate); }
+          if (!isRefundable(rate)) freeCancellation = false;
         });
+        if (!count) return;
+        const key = name.toLowerCase() + "|" + board.toLowerCase() + "|" + freeCancellation;
+        if (!bestByKey[key] || total < bestByKey[key].price) {
+          bestByKey[key] = { name: name, board: board, price: total, currency: currency, freeCancellation: freeCancellation };
+        }
       });
       roomRates = Object.keys(bestByKey).map(function (k) { return bestByKey[k]; });
       roomRates.sort(function (a, b) { return a.price - b.price; });
