@@ -295,8 +295,12 @@
         nationality: params.nationality
       });
 
-      fetch("/api/hotels/search?" + qs.toString())
+      var controller = new AbortController();
+      var timeoutId = setTimeout(function(){ controller.abort(); }, 15000);
+
+      fetch("/api/hotels/search?" + qs.toString(), { signal: controller.signal })
         .then(function(r){
+          clearTimeout(timeoutId);
           if (!r.ok) throw new Error("Search failed (" + r.status + ")");
           return r.json();
         })
@@ -305,6 +309,7 @@
           renderResults(data, params);
         })
         .catch(function(err){
+          clearTimeout(timeoutId);
           resultsEl.hidden = true;
           setStatus("We couldn't reach live rates right now — try again, or send us a request below and an agent will quote you directly.", true);
         });

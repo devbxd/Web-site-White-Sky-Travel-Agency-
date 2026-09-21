@@ -91,23 +91,29 @@ module.exports = async function handler(req, res) {
     const facilities = (info.hotelFacilities && info.hotelFacilities.length ? info.hotelFacilities : null) ||
       (info.facilities || []).map(function (f) { return f.name; }).filter(Boolean);
 
+    /* Multiple suppliers often return the same room+board combo at
+       (near-)identical prices — keep only the cheapest offer per
+       name+board+cancellation combo so the list doesn't balloon. */
     let roomRates = [];
     const rateHotel = rates && rates.data && rates.data[0];
     if (rateHotel) {
+      const bestByKey = {};
       (rateHotel.roomTypes || []).forEach(function (rt) {
         (rt.rates || []).forEach(function (rate) {
           const amt = rateAmount(rate);
           if (!amt) return;
-          roomRates.push({
-            name: rate.name || "Room",
-            board: boardLabel(rate),
-            price: amt.amount,
-            currency: amt.currency || "USD",
-            freeCancellation: isRefundable(rate)
-          });
+          const name = rate.name || "Room";
+          const board = boardLabel(rate);
+          const freeCancellation = isRefundable(rate);
+          const key = name.toLowerCase() + "|" + board.toLowerCase() + "|" + freeCancellation;
+          if (!bestByKey[key] || amt.amount < bestByKey[key].price) {
+            bestByKey[key] = { name: name, board: board, price: amt.amount, currency: amt.currency || "USD", freeCancellation: freeCancellation };
+          }
         });
       });
+      roomRates = Object.keys(bestByKey).map(function (k) { return bestByKey[k]; });
       roomRates.sort(function (a, b) { return a.price - b.price; });
+      roomRates = roomRates.slice(0, 12);
     }
 
     res.status(200).json({

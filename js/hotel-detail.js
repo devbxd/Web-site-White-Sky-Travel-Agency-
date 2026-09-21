@@ -48,8 +48,12 @@
 
     var qs = new URLSearchParams({ id: id, checkin: checkin, checkout: checkout, rooms: rooms, adults: adults, nationality: nationality });
 
-    fetch("/api/hotels/details?" + qs.toString())
+    var controller = new AbortController();
+    var timeoutId = setTimeout(function(){ controller.abort(); }, 15000);
+
+    fetch("/api/hotels/details?" + qs.toString(), { signal: controller.signal })
       .then(function(r){
+        clearTimeout(timeoutId);
         if (!r.ok) throw new Error("Failed (" + r.status + ")");
         return r.json();
       })
@@ -175,6 +179,7 @@
         contentEl.hidden = false;
       })
       .catch(function(){
+        clearTimeout(timeoutId);
         loadingEl.hidden = true;
         errorEl.hidden = false;
         errorEl.textContent = "We couldn't load this hotel's details right now. Please go back and try again, or send us a request and an agent will help directly.";
