@@ -242,14 +242,20 @@
         var bookBtn = document.createElement("a");
         bookBtn.className = "btn btn-gold";
         bookBtn.textContent = "Request This Rate";
-        var msg = "Hotel enquiry — White Sky Travel Agency\n" +
-          "Hotel: " + (hotel.name || "") + "\n" +
-          "Destination: " + (params.destinationLabel || params.destination) + "\n" +
-          "Check-in: " + params.checkin + "\n" +
-          "Check-out: " + params.checkout + "\n" +
-          "Guests: " + params.adults + " adult(s), " + params.rooms + " room(s)" +
-          (hotel.price != null ? "\nQuoted rate: " + (hotel.currency || "USD") + " " + Number(hotel.price).toFixed(0) : "");
-        bookBtn.href = "https://wa.me/96598818699?text=" + encodeURIComponent(msg);
+        var msgLines = [
+          "🏨 *Hotel Enquiry — White Sky Travel Agency*",
+          "",
+          "*Hotel:* " + (hotel.name || ""),
+          "*Destination:* " + (params.destinationLabel || params.destination),
+          "*Check-in:* " + params.checkin,
+          "*Check-out:* " + params.checkout,
+          "*Guests:* " + params.adults + " adult(s), " + params.rooms + " room(s)"
+        ];
+        if (hotel.price != null) {
+          msgLines.push("*Quoted rate:* " + (hotel.currency || "USD") + " " + Number(hotel.price).toFixed(0) + " (total stay)");
+        }
+        msgLines.push("", "Could you please confirm availability and finalize this booking? Thank you!");
+        bookBtn.href = "https://wa.me/96598818699?text=" + encodeURIComponent(msgLines.join("\n"));
         bookBtn.target = "_blank";
         bookBtn.rel = "noopener";
         priceWrap.appendChild(bookBtn);

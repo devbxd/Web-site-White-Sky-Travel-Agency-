@@ -35,14 +35,16 @@
 
     function whatsAppUrl(roomName, price, currency){
       var lines = [
-        "Hotel enquiry — White Sky Travel Agency",
-        "Hotel: " + document.getElementById("hdName").textContent,
-        "Room: " + (roomName || "Best available rate"),
-        "Check-in: " + (checkin || "—"),
-        "Check-out: " + (checkout || "—"),
-        "Guests: " + adults + " adult(s), " + rooms + " room(s)"
+        "🏨 *Hotel Enquiry — White Sky Travel Agency*",
+        "",
+        "*Hotel:* " + document.getElementById("hdName").textContent,
+        "*Room:* " + (roomName || "Best available rate"),
+        "*Check-in:* " + (checkin || "—"),
+        "*Check-out:* " + (checkout || "—"),
+        "*Guests:* " + adults + " adult(s), " + rooms + " room(s)"
       ];
-      if (price != null) lines.push("Quoted rate: " + (currency || "USD") + " " + Number(price).toFixed(0));
+      if (price != null) lines.push("*Quoted rate:* " + (currency || "USD") + " " + Number(price).toFixed(0) + " (total stay)");
+      lines.push("", "Could you please confirm availability and finalize this booking? Thank you!");
       return "https://wa.me/96598818699?text=" + encodeURIComponent(lines.join("\n"));
     }
 
