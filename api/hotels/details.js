@@ -11,6 +11,7 @@ function demoDetails(id) {
     images: [
       { url: "" }, { url: "" }, { url: "" }, { url: "" }
     ],
+    roomGalleries: [],
     rooms: [
       { name: "Deluxe Room", board: "Breakfast Included", price: 214, currency: "USD", freeCancellation: true },
       { name: "Executive Suite", board: "Room Only", price: 289, currency: "USD", freeCancellation: true },
@@ -91,6 +92,22 @@ module.exports = async function handler(req, res) {
     const facilities = (info.hotelFacilities && info.hotelFacilities.length ? info.hotelFacilities : null) ||
       (info.facilities || []).map(function (f) { return f.name; }).filter(Boolean);
 
+    /* Per-room-type photo galleries ("Images of Standard Room", etc.) */
+    const seenRoomNames = {};
+    const roomGalleries = (info.rooms || []).map(function (r) {
+      const roomImages = (r.photos || [])
+        .map(function (p) { return { url: p.hd_url || p.url, caption: p.imageDescription || "" }; })
+        .filter(function (p) { return !!p.url; })
+        .slice(0, 10);
+      return { name: r.roomName || "Room", images: roomImages };
+    }).filter(function (group) {
+      if (!group.images.length) return false;
+      const key = group.name.toLowerCase();
+      if (seenRoomNames[key]) return false;
+      seenRoomNames[key] = true;
+      return true;
+    }).slice(0, 8);
+
     /* Multiple suppliers often return the same room+board combo at
        (near-)identical prices — keep only the cheapest offer per
        name+board+cancellation combo so the list doesn't balloon. */
@@ -124,6 +141,7 @@ module.exports = async function handler(req, res) {
       description: stripHtml(info.hotelDescription).slice(0, 900),
       facilities: facilities.slice(0, 12),
       images: images.slice(0, 12),
+      roomGalleries: roomGalleries,
       rooms: roomRates
     });
   } catch (err) {

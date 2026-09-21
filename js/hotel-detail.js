@@ -119,6 +119,39 @@
           document.querySelector(".hd-gallery").hidden = true;
         }
 
+        /* ---------- Per-room-type photo galleries ---------- */
+        var galleriesEl = document.getElementById("hdRoomGalleries");
+        (hotel.roomGalleries || []).forEach(function(group){
+          if (!group.images || !group.images.length) return;
+
+          var wrap = document.createElement("div");
+          wrap.className = "hd-room-gallery-group";
+
+          var label = document.createElement("span");
+          label.className = "hd-room-gallery-label";
+          label.textContent = "Images of " + group.name;
+          wrap.appendChild(label);
+
+          var groupStrip = document.createElement("div");
+          groupStrip.className = "hd-room-gallery-strip";
+          group.images.forEach(function(img){
+            var thumb = document.createElement("button");
+            thumb.type = "button";
+            var thumbImg = document.createElement("img");
+            thumbImg.src = img.url;
+            thumbImg.alt = img.caption || group.name;
+            thumbImg.loading = "lazy";
+            thumb.appendChild(thumbImg);
+            thumb.addEventListener("click", function(){
+              setMain(img.url, img.caption || group.name);
+            });
+            groupStrip.appendChild(thumb);
+          });
+          wrap.appendChild(groupStrip);
+
+          galleriesEl.appendChild(wrap);
+        });
+
         /* ---------- Rooms / rates ---------- */
         var roomsList = document.getElementById("hdRoomsList");
         var rooms_ = hotel.rooms || [];
