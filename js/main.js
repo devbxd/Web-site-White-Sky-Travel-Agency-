@@ -9,7 +9,7 @@
       address: "Kuwait City – Al Douwaliya Complex, Kuwait",
       phoneDisplay: "+965 9881 8699",
       phoneWa: "96598818699",
-      email: "info@whiteskytravelagency.com"
+      email: "info@whiteskytravelsagency.com"
     },
     lebanon: {
       label: "Lebanon Office",
