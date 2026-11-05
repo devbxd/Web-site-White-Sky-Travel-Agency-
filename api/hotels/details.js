@@ -86,7 +86,8 @@ module.exports = async function handler(req, res) {
        150px-wide thumbnails. */
     /* The same photo often comes back several times (as a hotel photo and
        again under one or more room types, sometimes at another size), so
-       every photo is keyed by its file name and only kept the first time. */
+       every photo is keyed by its file name and only kept the first time:
+       room types first, then the general hotel gallery. */
     const seenPhotos = {};
     function firstTime(img) {
       const key = (img.hdUrl || img.url || "").split("?")[0].split("/").pop().toLowerCase();
@@ -94,19 +95,6 @@ module.exports = async function handler(req, res) {
       seenPhotos[key] = true;
       return true;
     }
-    const images = (info.hotelImages || [])
-      .slice()
-      .sort(function (a, b) { return (a.order || 0) - (b.order || 0); })
-      .map(function (img) { return { url: img.url || img.urlHd, hdUrl: img.urlHd || img.url, caption: img.caption || "" }; })
-      .filter(function (img) { return !!img.url && firstTime(img); })
-      .slice(0, 30);
-    if (!images.length && (info.main_photo || info.thumbnail)) {
-      images.push({ url: info.thumbnail || info.main_photo, hdUrl: info.main_photo || info.thumbnail, caption: "" });
-    }
-
-    const facilities = (info.hotelFacilities && info.hotelFacilities.length ? info.hotelFacilities : null) ||
-      (info.facilities || []).map(function (f) { return f.name; }).filter(Boolean);
-
     /* Per-room-type photo galleries ("Images of Standard Room", etc.) */
     const seenRoomNames = {};
     const roomGalleries = (info.rooms || []).filter(function (r) {
@@ -121,6 +109,22 @@ module.exports = async function handler(req, res) {
         .slice(0, 8);
       return { name: r.roomName || "Room", images: roomImages };
     }).filter(function (group) { return group.images.length; }).slice(0, 10);
+
+    /* Hotel photos come after the rooms so a room photo stays with its room
+       and is not repeated in the general gallery. */
+    const images = (info.hotelImages || [])
+      .slice()
+      .sort(function (a, b) { return (a.order || 0) - (b.order || 0); })
+      .map(function (img) { return { url: img.url || img.urlHd, hdUrl: img.urlHd || img.url, caption: img.caption || "" }; })
+      .filter(function (img) { return !!img.url && firstTime(img); })
+      .slice(0, 30);
+    if (!images.length && (info.main_photo || info.thumbnail)) {
+      images.push({ url: info.thumbnail || info.main_photo, hdUrl: info.main_photo || info.thumbnail, caption: "" });
+    }
+
+    const facilities = (info.hotelFacilities && info.hotelFacilities.length ? info.hotelFacilities : null) ||
+      (info.facilities || []).map(function (f) { return f.name; }).filter(Boolean);
+
 
     /* Each roomTypes[] entry is one bookable offer. When more than one
        room is requested, its `rates` array holds one entry PER ROOM
