@@ -427,12 +427,12 @@ a.hs-card-name:hover{color:var(--sky)}
 .hs-quick button:hover{border-color:var(--sky);color:var(--sky);background:var(--sky-tint)}
 .hs-cities{margin-top:clamp(60px,8vw,90px)}
 .city-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.city{position:relative;border:0;padding:0;border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;cursor:pointer;color:#fff;text-align:left;isolation:isolate;background:#1b2430}
-.city img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1s var(--ease)}
-.city::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(10,12,16,.7),transparent 55%)}
-.city:hover img{transform:scale(1.06)}
-.city span{position:absolute;left:18px;right:18px;bottom:16px}
-.city b{display:block;font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.1}
-.city small{font-size:13.5px;color:rgba(255,255,255,.82)}
+.city-card{position:relative;border:0;padding:0;border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;cursor:pointer;color:#fff;text-align:left;isolation:isolate;background:#1b2430}
+.city-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1s var(--ease)}
+.city-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(10,12,16,.7),transparent 55%)}
+.city-card:hover img{transform:scale(1.06)}
+.city-card span{position:absolute;left:18px;right:18px;bottom:16px}
+.city-card b{display:block;font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.1}
+.city-card small{font-size:13.5px;color:rgba(255,255,255,.82)}
 @media (max-width:960px){.city-grid{grid-template-columns:repeat(2,1fr)}.page-hero.photo{min-height:300px}}
-@media (max-width:640px){.city{aspect-ratio:1}.hotel-search-section .hotel-search-card{margin-top:-60px}.page-hero.photo.tall{padding-bottom:90px}}
+@media (max-width:640px){.city-card{aspect-ratio:1}.hotel-search-section .hotel-search-card{margin-top:-60px}.page-hero.photo.tall{padding-bottom:90px}}

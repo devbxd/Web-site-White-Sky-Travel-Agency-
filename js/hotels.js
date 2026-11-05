@@ -89,7 +89,7 @@
         hideSuggestions();
         selectedDestination = null;
         destinationInput.value = btn.getAttribute("data-city");
-        if (btn.classList.contains("city")) {
+        if (btn.classList.contains("city-card")) {
           form.scrollIntoView({ behavior: "smooth", block: "start" });
           form.requestSubmit();
         } else {
