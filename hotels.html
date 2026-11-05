@@ -40,14 +40,14 @@
   </nav>
 </header>
 
-<section class="page-hero">
+<section class="page-hero photo tall" style="background-image:url(assets/photos/maldives.jpg)">
   <div class="wrap">
     <div><span class="breadcrumb"><a href="index.html">Home</a><span>/</span>Hotels</span><h1>Search hotel rates</h1></div>
     <p>Live availability from our partner network. Find a hotel you like and send it to us: we confirm the booking.</p>
   </div>
 </section>
 
-<section class="section-tight hotel-search-section">
+<section class="hotel-search-section">
   <div class="wrap">
     <form id="hotelSearchForm" class="hotel-search-card reveal" autocomplete="off">
       <div class="hs-row">
@@ -65,7 +65,10 @@
         <div class="field hs-field-narrow"><label for="nationality">Nationality</label>
           <select id="nationality" name="nationality"><option value="KW">Kuwait</option><option value="LB">Lebanon</option><option value="AE">UAE</option><option value="SA">Saudi Arabia</option><option value="QA">Qatar</option><option value="OTHER">Other</option></select></div>
       </div>
-      <button type="submit" class="btn hs-submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg> Search hotels</button>
+      <div class="hs-foot">
+        <button type="submit" class="btn hs-submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg> Search hotels</button>
+        <div class="hs-quick"><span>Popular:</span><button type="button" data-city="Istanbul">Istanbul</button><button type="button" data-city="Dubai">Dubai</button><button type="button" data-city="Trabzon">Trabzon</button><button type="button" data-city="Beirut">Beirut</button><button type="button" data-city="Paris">Paris</button><button type="button" data-city="Tbilisi">Tbilisi</button></div>
+      </div>
     </form>
 
     <div class="hs-status" id="hsStatus" hidden></div>
@@ -80,6 +83,20 @@
 
     <div class="hs-empty" id="hsEmpty" hidden>
       <p>No availability for these dates. Try other dates or a nearby area, or ask us directly.</p>
+    </div>
+
+    <div class="hs-cities">
+      <div class="sec-head"><div><span class="kicker">Where our clients stay</span><h2>Popular hotel destinations</h2></div><p>Tap a city to see live hotel rates for your dates.</p></div>
+      <div class="city-grid">
+        <button type="button" class="city reveal" data-city="Istanbul"><img src="assets/photos/istanbul.jpg" alt="Istanbul" loading="lazy"><span><b>Istanbul</b><small>Türkiye</small></span></button>
+        <button type="button" class="city reveal" data-city="Dubai"><img src="assets/photos/dubai.jpg" alt="Dubai" loading="lazy"><span><b>Dubai</b><small>United Arab Emirates</small></span></button>
+        <button type="button" class="city reveal" data-city="Trabzon"><img src="assets/photos/trabzon.jpg" alt="Trabzon" loading="lazy"><span><b>Trabzon</b><small>Türkiye</small></span></button>
+        <button type="button" class="city reveal" data-city="Tbilisi"><img src="assets/photos/tbilisi.jpg" alt="Tbilisi" loading="lazy"><span><b>Tbilisi</b><small>Georgia</small></span></button>
+        <button type="button" class="city reveal" data-city="Maldives"><img src="assets/photos/maldives.jpg" alt="Maldives" loading="lazy"><span><b>Maldives</b><small>Indian Ocean</small></span></button>
+        <button type="button" class="city reveal" data-city="Paris"><img src="assets/photos/paris.jpg" alt="Paris" loading="lazy"><span><b>Paris</b><small>France</small></span></button>
+        <button type="button" class="city reveal" data-city="Beirut"><img src="assets/photos/beirut.jpg" alt="Beirut" loading="lazy"><span><b>Beirut</b><small>Lebanon</small></span></button>
+        <button type="button" class="city reveal" data-city="Kuwait City"><img src="assets/photos/kuwait.jpg" alt="Kuwait City" loading="lazy"><span><b>Kuwait City</b><small>Kuwait</small></span></button>
+      </div>
     </div>
   </div>
 </section>

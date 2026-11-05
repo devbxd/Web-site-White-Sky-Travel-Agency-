@@ -82,6 +82,22 @@
       });
     }
 
+    /* ---------- Popular city shortcuts: chips fill the field, photo cards search right away ---------- */
+    document.querySelectorAll("[data-city]").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        clearTimeout(suggestTimer);
+        hideSuggestions();
+        selectedDestination = null;
+        destinationInput.value = btn.getAttribute("data-city");
+        if (btn.classList.contains("city")) {
+          form.scrollIntoView({ behavior: "smooth", block: "start" });
+          form.requestSubmit();
+        } else {
+          checkinInput.focus();
+        }
+      });
+    });
+
     /* ---------- Status / skeleton helpers ---------- */
     function setStatus(msg, isError){
       statusEl.hidden = !msg;
