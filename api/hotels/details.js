@@ -84,12 +84,22 @@ module.exports = async function handler(req, res) {
        is only fetched when the visitor actually enlarges that photo, so
        the page doesn't pull dozens of full-size images just to render
        150px-wide thumbnails. */
+    /* The same photo often comes back several times (as a hotel photo and
+       again under one or more room types, sometimes at another size), so
+       every photo is keyed by its file name and only kept the first time. */
+    const seenPhotos = {};
+    function firstTime(img) {
+      const key = (img.hdUrl || img.url || "").split("?")[0].split("/").pop().toLowerCase();
+      if (!key || seenPhotos[key]) return false;
+      seenPhotos[key] = true;
+      return true;
+    }
     const images = (info.hotelImages || [])
       .slice()
       .sort(function (a, b) { return (a.order || 0) - (b.order || 0); })
       .map(function (img) { return { url: img.url || img.urlHd, hdUrl: img.urlHd || img.url, caption: img.caption || "" }; })
-      .filter(function (img) { return !!img.url; })
-      .slice(0, 10);
+      .filter(function (img) { return !!img.url && firstTime(img); })
+      .slice(0, 30);
     if (!images.length && (info.main_photo || info.thumbnail)) {
       images.push({ url: info.thumbnail || info.main_photo, hdUrl: info.main_photo || info.thumbnail, caption: "" });
     }
@@ -99,19 +109,18 @@ module.exports = async function handler(req, res) {
 
     /* Per-room-type photo galleries ("Images of Standard Room", etc.) */
     const seenRoomNames = {};
-    const roomGalleries = (info.rooms || []).map(function (r) {
-      const roomImages = (r.photos || [])
-        .map(function (p) { return { url: p.url || p.hd_url, hdUrl: p.hd_url || p.url, caption: p.imageDescription || "" }; })
-        .filter(function (p) { return !!p.url; })
-        .slice(0, 6);
-      return { name: r.roomName || "Room", images: roomImages };
-    }).filter(function (group) {
-      if (!group.images.length) return false;
-      const key = group.name.toLowerCase();
+    const roomGalleries = (info.rooms || []).filter(function (r) {
+      const key = (r.roomName || "Room").toLowerCase();
       if (seenRoomNames[key]) return false;
       seenRoomNames[key] = true;
       return true;
-    }).slice(0, 6);
+    }).map(function (r) {
+      const roomImages = (r.photos || [])
+        .map(function (p) { return { url: p.url || p.hd_url, hdUrl: p.hd_url || p.url, caption: p.imageDescription || "" }; })
+        .filter(function (p) { return !!p.url && firstTime(p); })
+        .slice(0, 8);
+      return { name: r.roomName || "Room", images: roomImages };
+    }).filter(function (group) { return group.images.length; }).slice(0, 10);
 
     /* Each roomTypes[] entry is one bookable offer. When more than one
        room is requested, its `rates` array holds one entry PER ROOM
@@ -151,9 +160,9 @@ module.exports = async function handler(req, res) {
       name: info.name || "Hotel",
       stars: info.starRating || info.stars || null,
       address: [info.address, info.city].filter(Boolean).join(", "),
-      description: stripHtml(info.hotelDescription).slice(0, 900),
-      facilities: facilities.slice(0, 12),
-      images: images.slice(0, 12),
+      description: stripHtml(info.hotelDescription).slice(0, 2500),
+      facilities: facilities.slice(0, 40),
+      images: images,
       roomGalleries: roomGalleries,
       rooms: roomRates
     });

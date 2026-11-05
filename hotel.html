@@ -40,34 +40,60 @@
   </nav>
 </header>
 
-<section class="section-tight hotel-detail-section">
+<section class="hotel-detail-section">
   <div class="wrap">
     <span class="breadcrumb hd-breadcrumb"><a href="index.html">Home</a><span>/</span><a href="hotels.html">Hotels</a><span>/</span><span id="hdCrumbName">Hotel</span></span>
 
-    <div id="hdLoading" class="hs-status" style="margin-top:24px;"><span class="hs-spinner"></span><span>Loading hotel details…</span></div>
+    <div id="hdLoading" class="hs-status"><span class="hs-spinner"></span><span>Loading hotel details…</span></div>
     <div id="hdError" class="hs-status is-error" hidden></div>
 
     <div id="hdContent" hidden>
-      <div class="hd-gallery">
-        <div class="hd-gallery-main"><img id="hdMainImage" src="" alt=""></div>
-        <div class="hd-gallery-strip" id="hdGalleryStrip"></div>
-      </div>
-      <div class="hd-room-galleries" id="hdRoomGalleries"></div>
-      <div class="hd-layout">
-        <div class="hd-main">
+      <div class="hd-top">
+        <div>
           <div class="hd-heading"><h1 id="hdName">Hotel</h1><span class="hs-stars" id="hdStars"></span></div>
           <div class="hs-card-address hd-address" id="hdAddress"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg><span></span></div>
-          <p class="hd-description" id="hdDescription"></p>
-          <div class="hd-facilities" id="hdFacilities"></div>
         </div>
-        <aside class="hd-rooms">
+        <div class="hd-from" id="hdFrom" hidden>
+          <span>From</span><b id="hdFromPrice"></b><small>total stay</small>
+          <a href="#hdRates" class="btn btn-sm">See rates</a>
+        </div>
+      </div>
+
+      <div class="hd-mosaic" id="hdMosaic"></div>
+
+      <div class="hd-layout">
+        <div class="hd-main">
+          <section class="hd-block" id="hdAboutBlock">
+            <h2>About this hotel</h2>
+            <p class="hd-description" id="hdDescription"></p>
+            <button type="button" class="hd-more" id="hdDescMore" hidden>Read more</button>
+          </section>
+          <section class="hd-block" id="hdFacBlock">
+            <h2>Facilities</h2>
+            <div class="hd-facilities" id="hdFacilities"></div>
+            <button type="button" class="hd-more" id="hdFacMore" hidden></button>
+          </section>
+          <section class="hd-block" id="hdRoomTypesBlock" hidden>
+            <h2>Rooms</h2>
+            <div class="hd-roomtypes" id="hdRoomTypes"></div>
+          </section>
+        </div>
+        <aside class="hd-rooms" id="hdRates">
           <h2>Available rates</h2>
+          <p class="hd-dates" id="hdDates"></p>
           <div id="hdRoomsList" class="hd-rooms-list"></div>
         </aside>
       </div>
     </div>
   </div>
 </section>
+
+<div class="lightbox" id="hdLightbox" hidden>
+  <button type="button" class="lb-close" aria-label="Close">&times;</button>
+  <button type="button" class="lb-nav lb-prev" aria-label="Previous photo">&#8249;</button>
+  <figure><img id="lbImg" src="" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <button type="button" class="lb-nav lb-next" aria-label="Next photo">&#8250;</button>
+</div>
 
 <section class="cta-band">
   <div class="wrap">
