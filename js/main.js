@@ -57,6 +57,38 @@
       revealEls.forEach(function(el){ el.classList.add("in"); });
     }
 
+    /* ---------- Home "boarding pass": sends the trip to the office you fly from ---------- */
+    var trip = document.getElementById("quickTrip");
+    if (trip) {
+      var fromSel = trip.querySelector("#qtFrom");
+      var toInput = trip.querySelector("#qtTo");
+      var FROM = { kuwait: ["KWI", "Kuwait City"], lebanon: ["BEY", "Beirut"] };
+      var setText = function(sel, txt){ var el = document.querySelector(sel); if (el) el.textContent = txt; };
+      fromSel.addEventListener("change", function(){
+        setText("[data-from-code]", FROM[fromSel.value][0]);
+        setText("[data-from-city]", FROM[fromSel.value][1]);
+      });
+      toInput.addEventListener("input", function(){
+        var v = toInput.value.trim();
+        setText("[data-to-code]", v ? v.replace(/[^A-Za-z]/g, "").slice(0, 3).toUpperCase() || "???" : "???");
+        setText("[data-to-city]", v || "Anywhere");
+      });
+      trip.addEventListener("submit", function(e){
+        e.preventDefault();
+        var office = OFFICES[fromSel.value] || OFFICES.kuwait;
+        var dates = trip.querySelector("#qtDates").value.trim();
+        var lines = [
+          "✈️ *Trip request — White Sky Travel Agency*",
+          "",
+          "*From:* " + FROM[fromSel.value][1],
+          "*To:* " + toInput.value.trim()
+        ];
+        if (dates) lines.push("*When:* " + dates);
+        lines.push("*Travellers:* " + trip.querySelector("#qtPax").value, "", "Could you send me some options? Thank you!");
+        window.open("https://wa.me/" + office.phoneWa + "?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noopener");
+      });
+    }
+
     /* ---------- Request / quote form ---------- */
     var form = document.getElementById("requestForm");
     if (form) {
@@ -69,6 +101,9 @@
         var opt = serviceSelect.querySelector('option[value="' + svc + '"]');
         if (opt) serviceSelect.value = svc;
       }
+      var destParam = params.get("destination");
+      var destInput = form.querySelector("#destination");
+      if (destParam && destInput) destInput.value = destParam;
       var officeParam = params.get("office");
       var officeSelect = form.querySelector("#office");
       if (officeParam && officeSelect) {

@@ -3,44 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hotel Search — White Sky Travel Agency | Kuwait &amp; Lebanon</title>
-<meta name="description" content="Search and compare hotel rates worldwide — negotiated rates from our travel partner network, booked personally by White Sky Travel Agency.">
+<title>Search hotels | White Sky Travel Agency</title>
+<meta name="description" content="Search and compare hotel rates worldwide, then let White Sky Travel Agency confirm the booking for you.">
+<meta name="theme-color" content="#f5f2ec">
 <link rel="icon" href="assets/images/kuwait-office-banner.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Playfair+Display:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..600,50;1,9..144,400..500,50&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-<div class="topbar">
-  <div class="container">
-    <div class="topbar-contacts">
-      <a href="tel:+96598818699">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 6-3 2a14 14 0 0 0 6 6l2-3 6 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2z"/></svg>
-        Kuwait: +965 9881 8699
-      </a>
-      <a href="tel:+96176141918">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 6-3 2a14 14 0 0 0 6 6l2-3 6 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2z"/></svg>
-        Lebanon: +961 76 141 918
-      </a>
+<div class="topline">
+  <div class="wrap">
+    <div class="tl-phones">
+      <a href="tel:+96598818699">Kuwait +965 9881 8699</a>
+      <a href="tel:+96176141918">Lebanon +961 76 141 918</a>
     </div>
-    <span class="topbar-tag">Premium Travel Experience</span>
+    <span class="tl-tag">Flights · Hotels · Visas · Packages</span>
   </div>
 </div>
-
-<header class="site-header">
-  <nav class="nav container">
-    <a href="index.html" class="brand">
-      <svg class="brand-mark" viewBox="0 0 48 48" fill="none">
-        <circle cx="24" cy="24" r="21.5" stroke="#d1a85d" stroke-width="1.1"/>
-        <path d="M13 29.5 33 18l-6.5 18-2.7-7.4L13 29.5Z" fill="none" stroke="#eeda9f" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
-      </svg>
-      <span class="brand-text">
-        <span class="name">WHITE SKY</span>
-        <span class="sub">Travel Agency</span>
-      </span>
-    </a>
+<header class="hdr">
+  <nav class="wrap">
+    <a href="index.html" class="logo"><b>White Sky</b><small>Travel Agency · Kuwait &amp; Lebanon</small></a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="hotels.html" class="active">Hotels</a></li>
@@ -49,75 +33,39 @@
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-cta">
-      <a href="contact.html#request" class="btn btn-gold">Request a Quote</a>
+      <a href="hotels.html" class="btn btn-line btn-sm">Search hotels</a>
+      <a href="contact.html#request" class="btn btn-sm">Plan a trip</a>
     </div>
-    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
   </nav>
 </header>
 
 <section class="page-hero">
-  <div class="dot-map"></div>
-  <div class="container">
-    <span class="breadcrumb"><a href="index.html">Home</a><span>/</span>Hotels</span>
-    <h1>Search hotel rates</h1>
-    <p>Live availability from our partner network — the same negotiated rates our agents book with, compared side by side.</p>
+  <div class="wrap">
+    <div><span class="breadcrumb"><a href="index.html">Home</a><span>/</span>Hotels</span><h1>Search hotel rates</h1></div>
+    <p>Live availability from our partner network. Find a hotel you like and send it to us: we confirm the booking.</p>
   </div>
 </section>
 
 <section class="section-tight hotel-search-section">
-  <div class="container">
-
+  <div class="wrap">
     <form id="hotelSearchForm" class="hotel-search-card reveal" autocomplete="off">
       <div class="hs-row">
         <div class="field hs-field-destination">
           <label for="destination">Destination</label>
-          <input type="text" id="destination" name="destination" placeholder="City, hotel or region" required>
+          <input type="text" id="destination" name="destination" placeholder="City, hotel or area" required>
           <div class="hs-suggestions" id="hsSuggestions" hidden></div>
         </div>
-        <div class="field">
-          <label for="checkin">Check-in</label>
-          <input type="date" id="checkin" name="checkin" required>
-        </div>
-        <div class="field">
-          <label for="checkout">Check-out</label>
-          <input type="date" id="checkout" name="checkout" required>
-        </div>
-        <div class="field hs-field-narrow">
-          <label for="rooms">Rooms</label>
-          <select id="rooms" name="rooms">
-            <option value="1">1 Room</option>
-            <option value="2">2 Rooms</option>
-            <option value="3">3 Rooms</option>
-            <option value="4">4 Rooms</option>
-          </select>
-        </div>
-        <div class="field hs-field-narrow">
-          <label for="adults">Guests</label>
-          <select id="adults" name="adults">
-            <option value="1">1 Adult</option>
-            <option value="2" selected>2 Adults</option>
-            <option value="3">3 Adults</option>
-            <option value="4">4 Adults</option>
-            <option value="5">5 Adults</option>
-            <option value="6">6 Adults</option>
-          </select>
-        </div>
-        <div class="field hs-field-narrow">
-          <label for="nationality">Nationality</label>
-          <select id="nationality" name="nationality">
-            <option value="KW">Kuwait</option>
-            <option value="LB">Lebanon</option>
-            <option value="AE">UAE</option>
-            <option value="SA">Saudi Arabia</option>
-            <option value="QA">Qatar</option>
-            <option value="OTHER">Other</option>
-          </select>
-        </div>
+        <div class="field"><label for="checkin">Check-in</label><input type="date" id="checkin" name="checkin" required></div>
+        <div class="field"><label for="checkout">Check-out</label><input type="date" id="checkout" name="checkout" required></div>
+        <div class="field hs-field-narrow"><label for="rooms">Rooms</label>
+          <select id="rooms" name="rooms"><option value="1">1 room</option><option value="2">2 rooms</option><option value="3">3 rooms</option><option value="4">4 rooms</option></select></div>
+        <div class="field hs-field-narrow"><label for="adults">Guests</label>
+          <select id="adults" name="adults"><option value="1">1 adult</option><option value="2" selected>2 adults</option><option value="3">3 adults</option><option value="4">4 adults</option><option value="5">5 adults</option><option value="6">6 adults</option></select></div>
+        <div class="field hs-field-narrow"><label for="nationality">Nationality</label>
+          <select id="nationality" name="nationality"><option value="KW">Kuwait</option><option value="LB">Lebanon</option><option value="AE">UAE</option><option value="SA">Saudi Arabia</option><option value="QA">Qatar</option><option value="OTHER">Other</option></select></div>
       </div>
-      <button type="submit" class="btn btn-gold hs-submit">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        Search Hotels
-      </button>
+      <button type="submit" class="btn hs-submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg> Search hotels</button>
     </form>
 
     <div class="hs-status" id="hsStatus" hidden></div>
@@ -131,69 +79,57 @@
     </div>
 
     <div class="hs-empty" id="hsEmpty" hidden>
-      <div class="divider"><span></span></div>
-      <p>No availability found for these dates. Try adjusting your destination or travel dates.</p>
+      <p>No availability for these dates. Try other dates or a nearby area, or ask us directly.</p>
     </div>
-
   </div>
 </section>
 
 <section class="cta-band">
-  <div class="dot-map"></div>
-  <div class="container reveal">
-    <span class="eyebrow light">Prefer A Human Touch</span>
-    <h2>Let our agents find your rate</h2>
-    <p>Send us your destination and dates and our Kuwait or Lebanon team will confirm the best hotel rate directly.</p>
-    <a href="contact.html?service=hotels#request" class="btn btn-gold">Request a Quote</a>
+  <div class="wrap">
+    <div class="closing reveal">
+      <div>
+        <h2>Prefer that we look for you?</h2>
+        <p>Send us the city and dates and our Kuwait or Lebanon team will find the right hotel at the right rate.</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-wa" href="https://wa.me/96598818699" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3L3 21Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.3-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2L9 9.5Z"/></svg> WhatsApp Kuwait office</a>
+        <a class="btn btn-light" href="https://wa.me/96176141918" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3L3 21Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.3-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2L9 9.5Z"/></svg> WhatsApp Lebanon office</a>
+      </div>
+    </div>
   </div>
 </section>
 
 <footer class="site-footer">
-  <div class="container">
+  <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="brand">
-          <svg class="brand-mark" viewBox="0 0 48 48" fill="none">
-            <circle cx="24" cy="24" r="21.5" stroke="#d1a85d" stroke-width="1.1"/>
-            <path d="M13 29.5 33 18l-6.5 18-2.7-7.4L13 29.5Z" fill="none" stroke="#eeda9f" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
-          </svg>
-          <span class="brand-text">
-            <span class="name">WHITE SKY</span>
-            <span class="sub">Travel Agency</span>
-          </span>
-        </a>
-        <p>Flights, hotels, visa assistance and travel packages — with offices in Kuwait City and Cheka, Lebanon.</p>
+        <a href="index.html" class="logo"><b>White Sky</b><small>Travel Agency · Kuwait &amp; Lebanon</small></a>
+        <p>Flight tickets, hotels, visas and travel packages, arranged by our teams in Kuwait City and Cheka.</p>
       </div>
       <div class="footer-col">
         <h5>Explore</h5>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="hotels.html">Hotels</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
+        <ul><li><a href="index.html">Home</a></li><li><a href="hotels.html">Hotels</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul>
       </div>
       <div class="footer-col">
-        <h5>Kuwait Office</h5>
+        <h5>Kuwait office</h5>
         <ul>
-          <li class="small">Al Douwaliya Complex, Kuwait City</li>
+          <li>Al Douwaliya Complex, Kuwait City</li>
           <li><a href="tel:+96598818699">+965 9881 8699</a></li>
           <li><a href="mailto:info@whiteskytravelsagency.com">info@whiteskytravelsagency.com</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h5>Lebanon Office</h5>
+        <h5>Lebanon office</h5>
         <ul>
-          <li class="small">Cheka, Lebanon</li>
+          <li>Cheka, Lebanon</li>
           <li><a href="tel:+96176141918">+961 76 141 918</a></li>
           <li><a href="mailto:majd@mstravelagency.com">majd@mstravelagency.com</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span data-year></span> White Sky Travel Agency. All rights reserved.</span>
-      <span>Kuwait &middot; Lebanon</span>
+      <span>&copy; <span data-year></span> White Sky Travel Agency</span>
+      <span>Photos: Pexels</span>
     </div>
   </div>
 </footer>
