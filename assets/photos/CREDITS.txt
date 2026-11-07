@@ -15,3 +15,8 @@ season/scene-tree.webp — https://www.pexels.com/photo/lighted-christmas-trees-
 season/scene-flight.webp — https://www.pexels.com/photo/aircraft-parking-near-airport-terminal-at-night-4530192/
 season/scene-fireworks.webp — https://www.pexels.com/photo/spectacular-fireworks-over-pavilion-and-city-skyline-34168008/
 season/snowflake.webp, garland*.webp — cut out from images supplied by the site owner; source and licence to be confirmed before publishing
+season/page-hotels.webp — https://www.pexels.com/photo/3229916/
+season/page-about.webp — https://www.pexels.com/photo/city-in-winter-at-dusk-11412889/
+season/page-services.webp — https://www.pexels.com/photo/snow-covered-village-houses-during-winter-11360895/
+season/page-contact.webp — https://www.pexels.com/photo/christmas-village-photograph-314860/
+season/about-side.webp — https://www.pexels.com/photo/street-light-near-pine-tree-12940628/

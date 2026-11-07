@@ -1,5 +1,5 @@
-/* White Sky — the Christmas opening: three full-screen photographs that dissolve into one
-   another as you scroll, each with its own headline. */
+/* White Sky — the Christmas opening: three full-screen photographs. One scroll or swipe plays the
+   dissolve to the next one; after the last, the page scrolls normally. */
 (function () {
   "use strict";
 
@@ -8,28 +8,27 @@
   var sticky = stage.querySelector(".xm-sticky");
   var shots = [].slice.call(stage.querySelectorAll(".xm-shot"));
   var panels = [].slice.call(stage.querySelectorAll(".xm-panel"));
-  var hint = stage.querySelector(".xm-hint");
+  var next = stage.querySelector(".xm-next");
   var reduced = matchMedia("(prefers-reduced-motion:reduce)").matches;
+  var STOPS = [0, 0.5, 1];
 
   function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
   function smooth(a, b, v) { var t = clamp((v - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); }
 
-  var current = 0, target = 0, running = false;
+  function travel() { return stage.offsetHeight - sticky.offsetHeight; }
+  function progress() { return clamp(-stage.getBoundingClientRect().top / travel(), 0, 1); }
 
   function draw(p) {
-    /* each photograph holds, then dissolves into the next */
-    var fades = [1, smooth(0.24, 0.42, p), smooth(0.62, 0.8, p)];
-    /* a slow push-in tied to scroll, like a shot in a film */
+    var fades = [1, smooth(0.1, 0.42, p), smooth(0.58, 0.9, p)];
     var zoom = [p, p - 0.2, p - 0.55];
     shots.forEach(function (shot, i) {
       shot.style.opacity = fades[i].toFixed(3);
       if (!reduced) shot.style.transform = "scale(" + (1.03 + Math.max(zoom[i], 0) * 0.12).toFixed(4) + ")";
     });
-    /* the words leave a little before their photograph does */
     var copy = [
-      1 - smooth(0.16, 0.3, p),
-      smooth(0.36, 0.46, p) * (1 - smooth(0.56, 0.68, p)),
-      smooth(0.74, 0.84, p)
+      1 - smooth(0.04, 0.2, p),
+      smooth(0.3, 0.44, p) * (1 - smooth(0.56, 0.7, p)),
+      smooth(0.8, 0.94, p)
     ];
     panels.forEach(function (panel, i) {
       panel.style.opacity = copy[i].toFixed(3);
@@ -37,26 +36,75 @@
       panel.style.visibility = copy[i] < 0.02 ? "hidden" : "visible";
       panel.classList.toggle("on", copy[i] > 0.5);
     });
-    if (hint) hint.style.opacity = (1 - smooth(0.01, 0.1, p)).toFixed(3);
   }
 
-  function loop() {
-    current += (target - current) * (reduced ? 1 : 0.12);
-    if (Math.abs(target - current) < 0.0005) current = target;
-    draw(current);
-    if (current !== target) requestAnimationFrame(loop);
-    else running = false;
+  addEventListener("scroll", function () { draw(progress()); }, { passive: true });
+  addEventListener("resize", function () { draw(progress()); });
+  draw(progress());
+
+  /* ---------- one gesture, one scene ---------- */
+  var moving = false, stoppedAt = 0, lastWheel = 0;
+
+  function stopY(p) {
+    if (p === 0) return 0;
+    return stage.getBoundingClientRect().top + scrollY + p * travel();
+  }
+  function glideTo(y) {
+    var from = scrollY, begin = performance.now(), length = reduced ? 1 : 1100;
+    moving = true;
+    (function step(now) {
+      var t = clamp((now - begin) / length, 0, 1);
+      var eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      scrollTo({ top: from + (y - from) * eased, behavior: "instant" });
+      if (t < 1) { requestAnimationFrame(step); return; }
+      moving = false;
+      stoppedAt = performance.now();
+    })(begin);
+  }
+  /* the scene to move to, or null when the page should simply scroll */
+  function target(direction) {
+    if (-stage.getBoundingClientRect().top > travel() + 2) return null;
+    var p = progress(), found = null;
+    STOPS.forEach(function (stop) {
+      if (direction > 0 && found === null && stop > p + 0.01) found = stop;
+      if (direction < 0 && stop < p - 0.01) found = stop;
+    });
+    return found;
   }
 
-  function read() {
-    var rect = stage.getBoundingClientRect();
-    target = clamp(-rect.top / (rect.height - sticky.offsetHeight), 0, 1);
-    if (!running) { running = true; requestAnimationFrame(loop); }
-  }
+  addEventListener("wheel", function (e) {
+    if (e.ctrlKey || !e.deltaY) return;
+    var now = performance.now(), gap = now - lastWheel;
+    lastWheel = now;
+    if (moving) { e.preventDefault(); return; }
+    var stop = target(e.deltaY > 0 ? 1 : -1);
+    if (stop === null) return;
+    e.preventDefault();
+    /* ignore the tail of a trackpad flick that already moved a scene */
+    if (gap < 120 && now - stoppedAt < 900) return;
+    glideTo(stopY(stop));
+  }, { passive: false });
 
-  addEventListener("scroll", read, { passive: true });
-  addEventListener("resize", read);
-  read();
-  current = target;
-  draw(current);
+  var touchY = null;
+  stage.addEventListener("touchstart", function (e) { touchY = e.touches[0].clientY; }, { passive: true });
+  stage.addEventListener("touchmove", function (e) {
+    if (touchY === null) return;
+    var delta = touchY - e.touches[0].clientY;
+    if (moving || (Math.abs(delta) > 2 && target(delta > 0 ? 1 : -1) !== null)) {
+      if (e.cancelable) e.preventDefault();
+    }
+  }, { passive: false });
+  stage.addEventListener("touchend", function (e) {
+    if (touchY === null) return;
+    var delta = touchY - e.changedTouches[0].clientY;
+    touchY = null;
+    if (moving || Math.abs(delta) < 24) return;
+    var stop = target(delta > 0 ? 1 : -1);
+    if (stop !== null) glideTo(stopY(stop));
+  });
+
+  if (next) next.addEventListener("click", function () {
+    var stop = target(1);
+    glideTo(stop !== null ? stopY(stop) : stage.getBoundingClientRect().bottom + scrollY - sticky.getBoundingClientRect().top);
+  });
 })();

@@ -32,7 +32,7 @@
         toggle.classList.toggle("active");
       });
       links.querySelectorAll("a").forEach(function(a){
-        a.addEventListener("click", function(){ links.classList.remove("open"); });
+        a.addEventListener("click", function(){ links.classList.remove("open"); toggle.classList.remove("active"); });
       });
     }
 

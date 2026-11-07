@@ -24,7 +24,7 @@
     "  vec2 corner=vec2(float(gl_VertexID&1),float((gl_VertexID>>1)&1))*2.-1.;",
     "  vec4 s=aSeed;",
     "  float depth=pow(s.w,4.6);",
-    "  float size=(8.+depth*60.)*clamp(uView.x/1100.,.62,1.1);",
+    "  float size=(14.+depth*54.)*clamp(uView.x/1100.,.78,1.1);",
     "  float H=uView.y+size*3.;",
     "  float fall=(26.+depth*62.)*(.75+fract(s.x*7.3)*.5);",
     "  float y=mod(s.y*H+uT*fall+uScroll*(.1+depth*.35),H)-size*1.5;",
@@ -61,7 +61,7 @@
     "  vec3 h=normalize(l+vec3(0.,0.,1.));",
     "  float diff=.82+.55*max(dot(n,l),0.);",
     "  float spec=pow(max(dot(n,h),0.),46.);",
-    "  vec3 rgb=c.rgb*vec3(1.06,.98,.86)*diff+vec3(1.,.98,.92)*spec*1.5*c.a;",
+    "  vec3 rgb=c.rgb*diff+vec3(1.,.98,.92)*spec*1.5*c.a;",
     "  o=vec4(rgb,c.a)*vFade;",
     "}"
   ].join("\n");

@@ -17,22 +17,31 @@
 
   /* The year we are counting towards: 2027 during Nov/Dec 2026, and still 2027 in early January. */
   var newYear = now.getMonth() === 0 ? now.getFullYear() : now.getFullYear() + 1;
-  window.WHITE_SKY_SEASON = { year: newYear };
 
-  function daysUntil(month, day, year) {
-    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    return Math.round((new Date(year, month, day) - today) / 864e5);
+  /* What the headline counts towards depends on the day it is read. */
+  function moment() {
+    var at = new Date(), xmas = new Date(newYear - 1, 11, 25), xmasEnd = new Date(newYear - 1, 11, 26), ny = new Date(newYear, 0, 1);
+    if (at < xmas) return { head: "Christmas is coming", target: xmas };
+    if (at < xmasEnd) return { head: "Merry Christmas", target: ny };
+    if (at < ny) return { head: newYear + " is coming", target: ny };
+    return { head: "Happy New Year", target: null };
   }
 
-  /* What the headline says depends on the day it is read. */
-  function moment() {
-    var toXmas = now.getMonth() === 0 ? -1 : daysUntil(11, 25, now.getFullYear());
-    var toYear = daysUntil(0, 1, newYear);
-    if (toXmas > 1) return { count: toXmas + " days to Christmas", head: 'Christmas is <em>coming.</em>' };
-    if (toXmas === 1) return { count: "Christmas Eve", head: 'Christmas is <em>here.</em>' };
-    if (toXmas === 0) return { count: "Today", head: 'Merry <em>Christmas.</em>' };
-    if (toYear > 0) return { count: toYear + (toYear === 1 ? " day to " : " days to ") + newYear, head: newYear + ' is <em>coming.</em>' };
-    return { count: "Welcome to " + newYear, head: 'Happy New <em>Year.</em>' };
+  function runCountdown(box, head) {
+    var labels = ["Days", "Hours", "Min", "Sec"];
+    box.innerHTML = labels.map(function (label) { return "<div><b>00</b><span>" + label + "</span></div>"; }).join("");
+    var cells = box.querySelectorAll("b");
+    function pad(n) { return n < 10 ? "0" + n : String(n); }
+    function tick() {
+      var m = moment();
+      if (head && head.textContent !== m.head) head.textContent = m.head;
+      if (!m.target) { box.hidden = true; return; }
+      var left = Math.max(0, Math.floor((m.target - new Date()) / 1000));
+      var values = [Math.floor(left / 86400), Math.floor(left / 3600) % 24, Math.floor(left / 60) % 60, left % 60];
+      values.forEach(function (v, i) { var t = pad(v); if (cells[i].textContent !== t) cells[i].textContent = t; });
+      setTimeout(tick, 1000 - Date.now() % 1000);
+    }
+    tick();
   }
 
   function loadScript(src) {
@@ -52,14 +61,17 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     var theme = document.querySelector('meta[name="theme-color"]');
-    if (theme) theme.content = "#1c0f0b";
+    if (theme) theme.content = "#0b241a";
 
     var tag = document.querySelector(".tl-tag");
     if (tag) tag.innerHTML = '<a href="tel:+96598818699">Christmas is coming. Call us for our new offers</a>';
 
-    var m = moment();
-    document.querySelectorAll("[data-xm-count]").forEach(function (el) { el.textContent = m.count; });
-    document.querySelectorAll("[data-xm-head]").forEach(function (el) { el.innerHTML = m.head; });
+    var countdown = document.querySelector("[data-xm-count]");
+    if (countdown) runCountdown(countdown, document.querySelector("[data-xm-head]"));
+
+    /* a snowy picture instead of the sea on the About page */
+    var side = document.querySelector(".about-img img");
+    if (side) { side.src = "assets/season/about-side.webp"; side.alt = "Snow-covered tree under street lamps at night"; }
 
     var header = document.querySelector(".hdr");
     if (header) hangGarland(header);
