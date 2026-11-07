@@ -115,7 +115,7 @@ html.season [id]{scroll-margin-top:150px}
 /* ---------- the opening scene ---------- */
 html.season .xm{display:block;position:relative;height:300vh;background:var(--night)}
 .xm-sticky{position:sticky;top:74px;height:calc(100vh - 74px);height:calc(100svh - 74px);overflow:hidden;background:#071a12}
-.xm-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:opacity,transform;opacity:0}
+.xm-shot{position:absolute;left:0;top:-18%;width:100%;height:136%;max-width:none;object-fit:cover;will-change:opacity,transform;opacity:0}
 .xm-shot:first-of-type{opacity:1;object-position:70% 62%}
 .xm-sticky::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(7,26,18,.82),rgba(7,26,18,.25) 50%,rgba(7,26,18,0) 72%),linear-gradient(0deg,rgba(7,26,18,.6),rgba(7,26,18,0) 40%)}
 .xm-frame{position:absolute;inset:0;z-index:2;max-width:var(--wrap);margin:0 auto;padding:0 var(--pad);pointer-events:none}

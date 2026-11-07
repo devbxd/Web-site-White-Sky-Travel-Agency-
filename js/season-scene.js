@@ -20,10 +20,11 @@
 
   function draw(p) {
     var fades = [1, clamp(p / 0.5, 0, 1), clamp((p - 0.5) / 0.5, 0, 1)];
-    var zoom = [p, p - 0.2, p - 0.55];
+    /* slow-motion descent: each photograph rises through the frame as you move past it */
     shots.forEach(function (shot, i) {
+      var along = clamp((STOPS[i] - p) / 0.5, -1, 1);
       shot.style.opacity = fades[i].toFixed(3);
-      if (!reduced) shot.style.transform = "scale(" + (1.03 + Math.max(zoom[i], 0) * 0.12).toFixed(4) + ")";
+      if (!reduced) shot.style.transform = "translate3d(0," + (along * 13).toFixed(2) + "%,0) scale(" + (1.02 + Math.abs(along) * 0.05).toFixed(4) + ")";
     });
     var copy = [
       1 - smooth(0.02, 0.2, p),
@@ -32,7 +33,7 @@
     ];
     panels.forEach(function (panel, i) {
       panel.style.opacity = copy[i].toFixed(3);
-      panel.style.transform = "translateY(" + ((1 - copy[i]) * 22).toFixed(1) + "px)";
+      panel.style.transform = "translateY(" + (clamp((STOPS[i] - p) / 0.5, -1, 1) * 150).toFixed(1) + "px)";
       panel.style.visibility = copy[i] < 0.02 ? "hidden" : "visible";
       panel.classList.toggle("on", copy[i] > 0.5);
     });
@@ -50,7 +51,7 @@
     return stage.getBoundingClientRect().top + scrollY + p * travel();
   }
   function glideTo(y) {
-    var from = scrollY, begin = performance.now(), length = reduced ? 1 : 2000;
+    var from = scrollY, begin = performance.now(), length = reduced ? 1 : 2400;
     moving = true;
     (function step(now) {
       var t = clamp((now - begin) / length, 0, 1);
