@@ -19,16 +19,16 @@
   function progress() { return clamp(-stage.getBoundingClientRect().top / travel(), 0, 1); }
 
   function draw(p) {
-    var fades = [1, smooth(0.1, 0.42, p), smooth(0.58, 0.9, p)];
+    var fades = [1, clamp(p / 0.5, 0, 1), clamp((p - 0.5) / 0.5, 0, 1)];
     var zoom = [p, p - 0.2, p - 0.55];
     shots.forEach(function (shot, i) {
       shot.style.opacity = fades[i].toFixed(3);
       if (!reduced) shot.style.transform = "scale(" + (1.03 + Math.max(zoom[i], 0) * 0.12).toFixed(4) + ")";
     });
     var copy = [
-      1 - smooth(0.04, 0.2, p),
-      smooth(0.3, 0.44, p) * (1 - smooth(0.56, 0.7, p)),
-      smooth(0.8, 0.94, p)
+      1 - smooth(0.02, 0.2, p),
+      smooth(0.3, 0.48, p) * (1 - smooth(0.52, 0.7, p)),
+      smooth(0.8, 0.98, p)
     ];
     panels.forEach(function (panel, i) {
       panel.style.opacity = copy[i].toFixed(3);
@@ -50,11 +50,11 @@
     return stage.getBoundingClientRect().top + scrollY + p * travel();
   }
   function glideTo(y) {
-    var from = scrollY, begin = performance.now(), length = reduced ? 1 : 1100;
+    var from = scrollY, begin = performance.now(), length = reduced ? 1 : 2000;
     moving = true;
     (function step(now) {
       var t = clamp((now - begin) / length, 0, 1);
-      var eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      var eased = (1 - Math.cos(t * Math.PI)) / 2;
       scrollTo({ top: from + (y - from) * eased, behavior: "instant" });
       if (t < 1) { requestAnimationFrame(step); return; }
       moving = false;
