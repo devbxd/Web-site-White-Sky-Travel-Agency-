@@ -1,0 +1,161 @@
+/* White Sky — Christmas & New Year look. Everything is scoped to html.season, which js/season.js
+   sets between 1 November and 7 January; outside those dates this file does nothing. */
+
+.xm{display:none}
+
+html.season{
+  color-scheme:dark;
+  --paper:#1c0f0b;
+  --paper-2:#34201a;
+  --card:#281610;
+  --ink:#f6efe1;
+  --ink-2:#d9cdbd;
+  --muted:#ab9c8b;
+  --line:rgba(232,201,138,.17);
+  --sky:#e8c98a;
+  --sky-deep:#f1dcae;
+  --sky-tint:rgba(232,201,138,.13);
+  --ok:#7fd3a4;
+  --gold:#e8c98a;
+  --gold-hot:#ffe7b0;
+  --night:#1c0f0b;
+  --foil:linear-gradient(100deg,#b98a3e 0%,#ffe7b0 22%,#d9ad5e 42%,#fff4d6 58%,#c3934a 78%,#ffe7b0 100%);
+}
+html.season body{
+  background:
+    radial-gradient(900px 700px at 88% 22%,rgba(150,70,25,.22),transparent 70%),
+    radial-gradient(900px 800px at 6% 58%,rgba(135,28,32,.2),transparent 70%),
+    var(--night);
+}
+html.season ::selection{background:var(--gold);color:#14100a}
+
+/* foil: the one treatment that carries the look through every page */
+html.season .logo b{background:var(--foil);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:foil 9s linear infinite}
+@keyframes foil{to{background-position:-220% 0}}
+html.season .kicker,html.season .breadcrumb{color:var(--gold)}
+html.season h1 em,html.season h2 em,html.season .hero h1 em{color:var(--gold-hot)}
+
+/* buttons: gold on night */
+html.season .btn,html.season .btn-gold{background:var(--gold);border-color:var(--gold);color:#14100a}
+html.season .btn:hover,html.season .btn-gold:hover{background:var(--gold-hot);border-color:var(--gold-hot);color:#14100a;box-shadow:0 10px 34px -8px rgba(255,214,140,.55)}
+html.season .btn-line,html.season .btn-outline-dark{background:transparent;color:var(--ink);border-color:rgba(232,201,138,.5)}
+html.season .btn-line:hover,html.season .btn-outline-dark:hover{background:var(--gold);color:#14100a;border-color:var(--gold)}
+html.season .btn-light{background:#fff8ea;border-color:#fff8ea;color:#14100a}
+html.season .btn-light:hover{background:var(--gold-hot);border-color:var(--gold-hot);color:#14100a}
+html.season .btn-ghost-light{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}
+html.season .btn-ghost-light:hover{background:#fff8ea;color:#14100a;border-color:#fff8ea}
+html.season .btn-wa{background:#1fa855;border-color:#1fa855;color:#fff}
+html.season .btn-wa:hover{background:#27c066;border-color:#27c066;color:#fff;box-shadow:0 10px 34px -8px rgba(39,192,102,.55)}
+
+/* header + footer */
+html.season .topline{position:relative;z-index:46;background:#140a07;color:#d6cfbf;border-bottom:1px solid rgba(232,201,138,.14)}
+html.season .tl-tag a{color:var(--gold-hot)}
+html.season .hdr{background:rgba(28,15,11,.72);border-bottom-color:rgba(232,201,138,.14)}
+html.season .site-footer{background:#140a07;border-top:1px solid rgba(232,201,138,.14)}
+html.season .footer-brand .logo b{color:transparent}
+html.season .nav-links{background:transparent}
+@media (max-width:960px){html.season .nav-links{background:#1f110c}}
+
+/* cards and fields */
+html.season .section-alt{background:rgba(40,22,16,.65)}
+html.season .ticket input,html.season .ticket select,
+html.season .field input,html.season .field select,html.season .field textarea,
+html.season .hs-suggestions,html.season .hs-quick button,html.season .hd-room-row{background:#1f110c;color:var(--ink)}
+html.season input::placeholder,html.season textarea::placeholder{color:#7f7e85}
+html.season .hs-suggestions button{color:var(--ink)}
+html.season .hs-quick button:hover{background:var(--sky-tint)}
+html.season .hs-badge.free-cancel{background:rgba(127,211,164,.13)}
+html.season .hs-status.is-error{color:#ff9d88}
+html.season .svc:hover,html.season .hs-card:hover{border-color:rgba(232,201,138,.42);box-shadow:0 26px 60px -34px rgba(255,205,120,.32)}
+html.season .office-card,html.season .svc,html.season .hs-card{transition:transform .3s var(--ease),box-shadow .3s,border-color .3s}
+html.season .office-card:hover{border-color:rgba(232,201,138,.42)}
+html.season .dest .go{color:#14100a}
+html.season .dest:hover .go{color:#14100a}
+html.season .dest img,html.season .city-card img,html.season .svc-img img,html.season .sd-img img,html.season .about-img img{filter:saturate(.92) brightness(.9)}
+
+/* the boarding pass becomes a gold-rimmed ticket */
+html.season .ticket{background:linear-gradient(170deg,#33201a,#20110c);box-shadow:0 40px 90px -36px rgba(0,0,0,.9),0 0 70px -24px rgba(255,205,120,.28);isolation:isolate}
+html.season .ticket::before{content:"";position:absolute;inset:0;z-index:2;padding:1.5px;border-radius:inherit;background:var(--foil);background-size:220% 100%;animation:foil 9s linear infinite;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);pointer-events:none}
+html.season .ticket-cut::before,html.season .ticket-cut::after{background:#22130d}
+html.season .ticket-route .code{background:var(--foil);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* the photo header on the home page turns to night */
+html.season .hero{background:var(--night)}
+html.season .hero-img{filter:brightness(.42) saturate(.65) hue-rotate(8deg) contrast(1.08)}
+html.season .hero::after{background:linear-gradient(180deg,var(--night) 0%,rgba(28,15,11,.32) 26%,rgba(28,15,11,.2) 62%,var(--night) 100%),linear-gradient(90deg,rgba(28,15,11,.82),rgba(28,15,11,.1) 75%)}
+html.season .strip{background:var(--card)}
+
+/* inner page headers */
+html.season .page-hero.photo{background-color:var(--night)}
+html.season .page-hero.photo::after{background:linear-gradient(90deg,rgba(28,15,11,.9),rgba(28,15,11,.4) 75%),linear-gradient(0deg,var(--night),rgba(28,15,11,.15) 62%)}
+
+/* closing card: slow aurora behind the last call */
+html.season .closing{position:relative;overflow:hidden;background:#25130d;border:1px solid rgba(232,201,138,.26);isolation:isolate}
+html.season .closing::before{content:"";position:absolute;inset:-40%;z-index:-1;background:radial-gradient(40% 40% at 28% 38%,rgba(190,105,35,.42),transparent 70%),radial-gradient(38% 38% at 74% 62%,rgba(150,30,35,.44),transparent 70%),radial-gradient(30% 30% at 56% 22%,rgba(232,201,138,.15),transparent 70%);animation:drift 20s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate3d(7%,-6%,0) rotate(14deg)}}
+html.season .closing>div{position:relative}
+
+/* falling crystals: above the page, behind the header and its garland */
+.season-flakes{position:fixed;inset:0;width:100vw;height:100vh;height:100lvh;pointer-events:none;z-index:45;opacity:0;transition:opacity 1.6s}
+.season-flakes.on{opacity:1}
+
+/* the garland */
+.season-garland{--h:clamp(66px,7.4vw,108px);position:absolute;left:0;right:0;top:100%;height:var(--h);margin-top:calc(var(--h)*-.2);pointer-events:none;background:url(../assets/season/garland.webp) center top/auto 100% repeat-x;filter:drop-shadow(0 12px 14px rgba(0,0,0,.55))}
+.season-garland i{position:absolute;inset:0;background:url(../assets/season/garland-glow-a.webp) center top/auto 100% repeat-x;animation:twinkle 2.6s ease-in-out infinite}
+.season-garland i+i{background-image:url(../assets/season/garland-glow-b.webp);animation-delay:-1.3s}
+@keyframes twinkle{0%,100%{opacity:.25}50%{opacity:1}}
+.site-footer{position:relative}
+.site-footer>.season-garland{top:0;margin-top:calc(var(--h)*-.5)}
+html.season .hd-rooms{top:150px;max-height:calc(100vh - 170px)}
+html.season [id]{scroll-margin-top:150px}
+@media (max-width:960px){html.season .nav-links{z-index:2}}
+
+/* ---------- the opening scene ---------- */
+html.season .xm{display:block;position:relative;height:360vh;background:var(--night)}
+.xm-sticky{position:sticky;top:74px;height:calc(100vh - 74px);height:calc(100svh - 74px);overflow:hidden;background:#140a07}
+.xm-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:opacity,transform;opacity:0}
+.xm-shot:first-of-type{opacity:1;object-position:70% 62%}
+.xm-sticky::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(20,10,7,.82),rgba(20,10,7,.25) 50%,rgba(20,10,7,0) 72%),linear-gradient(0deg,rgba(20,10,7,.6),rgba(20,10,7,0) 40%)}
+.xm-frame{position:absolute;inset:0;z-index:2;max-width:var(--wrap);margin:0 auto;padding:0 var(--pad);pointer-events:none}
+.xm-panel{position:absolute;left:var(--pad);bottom:clamp(58px,11vh,120px);max-width:min(620px,calc(100% - 2*var(--pad)));will-change:opacity,transform;color:#fff}
+.xm-panel.on{pointer-events:auto}
+.xm-count{display:inline-flex;align-items:center;gap:10px;font-size:15px;color:var(--gold-hot);letter-spacing:.01em;margin-bottom:18px}
+.xm-count::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold-hot);box-shadow:0 0 14px 3px rgba(255,214,140,.8);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+.xm-panel h2{font-size:clamp(46px,7.4vw,108px);line-height:.98;letter-spacing:-.025em;color:#fff;font-weight:400;text-shadow:0 2px 50px rgba(20,10,7,.75)}
+.xm-panel h2 em{background:var(--foil);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:foil 9s linear infinite;padding-right:.08em}
+.xm-panel+.xm-panel{max-width:520px}
+.xm-panel+.xm-panel h2{font-size:clamp(42px,5.4vw,78px)}
+.xm-panel+.xm-panel h2 em{display:block}
+.xm-panel p{margin-top:20px;max-width:27em;color:rgba(255,255,255,.86);font-size:clamp(16.5px,1.5vw,19px);text-shadow:0 1px 18px rgba(20,10,7,.9)}
+.xm-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.xm-hint{position:absolute;right:var(--pad);bottom:58px;font-size:13.5px;color:rgba(255,255,255,.68);display:flex;align-items:center;gap:9px}
+.xm-hint i{display:block;width:1px;height:30px;background:linear-gradient(var(--gold-hot),transparent);animation:hint 1.9s var(--ease) infinite;transform-origin:top}
+@keyframes hint{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+@media (max-width:960px){
+  .xm-sticky::after{background:linear-gradient(0deg,rgba(20,10,7,.94) 18%,rgba(20,10,7,.6) 42%,rgba(20,10,7,0) 62%)}
+}
+@media (max-width:640px){
+  .xm-sticky{top:64px;height:calc(100vh - 64px);height:calc(100svh - 64px)}
+  .xm-panel{bottom:56px}
+  .xm-num{display:none}
+  .xm-panel+.xm-panel h2{font-size:clamp(40px,12vw,58px)}
+  .xm-panel h2{font-size:clamp(44px,13vw,64px)}
+  .xm-panel p{margin-top:12px;font-size:16px}
+  .xm-count{margin-bottom:10px}
+  .xm-actions{margin-top:18px;gap:8px}
+  .xm-actions .btn{height:44px;padding:0 15px;font-size:14px;flex:1 1 0}
+  .xm-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .xm-hint i,.xm-count::before,.season-garland i{animation:none}
+}
+
+/* leave room for the garland under the header */
+html.season .page-hero.photo{padding-top:clamp(90px,10vw,130px)}
+html.season .hero .wrap{padding-top:clamp(110px,11vw,140px)}
+@media (max-width:640px){.xm-panel,.xm-panel+.xm-panel{right:var(--pad);max-width:none}.xm-actions .btn{min-width:0;padding:0 10px}}
+
+/* warm grade over the opening photographs */
+.xm-sticky::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:rgba(170,85,25,.2);mix-blend-mode:soft-light}
+.xm-shot{filter:saturate(1.05) sepia(.22)}

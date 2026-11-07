@@ -10,3 +10,8 @@ tbilisi.jpg — ROMAN ODINTSOV — https://www.pexels.com/photo/photo-of-an-old-
 visa.jpg — Jakub Zerdzicki — https://www.pexels.com/photo/polish-passports-and-travel-documents-on-a-table-33497885/
 hotel.jpg — Engin Akyurt — https://www.pexels.com/photo/photo-of-a-lamp-near-the-bed-2736384/
 airport.jpg — AirTeo  —  Air Travel
+
+season/scene-tree.webp — https://www.pexels.com/photo/lighted-christmas-trees-on-snow-covered-ground-during-night-time-10674024/
+season/scene-flight.webp — https://www.pexels.com/photo/aircraft-parking-near-airport-terminal-at-night-4530192/
+season/scene-fireworks.webp — https://www.pexels.com/photo/spectacular-fireworks-over-pavilion-and-city-skyline-34168008/
+season/snowflake.webp, garland*.webp — cut out from images supplied by the site owner; source and licence to be confirmed before publishing
